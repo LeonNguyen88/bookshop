@@ -67,7 +67,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'isAdmin'], function(){
 Route::get('/aa', function(Request $request){
     /*$content = Cart::content();
     print_r($content);*/
-    return $request->session()->all();
+    echo "buon cua anh";
 
 });
 Route::get('/product/{id}', 'ProductController@index')->name('product');
