@@ -18,6 +18,11 @@
             </tr>
         </thead>
         <tbody>
+            @if(Cart::count() == 0)
+                <tr>
+                    <td colspan="6">Không có sản phẩm nào trong giỏ hàng của bạn</td>
+                </tr>
+            @endif
             @foreach($carts as $cart)
                 <tr>
                     <td><a class="name" href="{{ route('product', $cart->id) }}" target="_blank">{{ $cart->name }}</a></td>
@@ -62,8 +67,8 @@
                 <td>{{ $total }} VND</td>
             </tr>
             <tr>
-                <td class="cart-2-action" colspan="2"><a href="" class="btn btn-primary">Tiếp tục mua hàng</a>
-                <a href="" class="btn btn-success">Thanh toán</a></td>
+                <td class="cart-2-action" colspan="2"><a href="{{ route('home') }}" class="btn btn-primary">Tiếp tục mua hàng</a>
+                <a href="{{ route('showtransaction') }}" class="btn btn-success">Thanh toán</a></td>
             </tr>
         </table>
     </div>

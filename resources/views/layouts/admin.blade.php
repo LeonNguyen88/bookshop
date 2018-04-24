@@ -28,11 +28,12 @@
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
     <style>
-        table{
-            table-layout: fixed;
-        }
+        /*table{*/
+            /*table-layout: fixed;*/
+        /*}*/
         td{
             word-wrap: break-word;
+            word-break: break-word;
         }
     </style>
 
@@ -178,16 +179,11 @@
 
 
                     <li>
-                        <a href="#"><i class="fa fa-wrench fa-fw"></i>Media<span class="fa arrow"></span></a>
+                        <a href="#"><i class="fa fa-wrench fa-fw"></i>Đơn hàng<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a href="/media">All Media</a>
+                                <a href="{{ route('admin.order.index') }}">Danh sách đơn hàng</a>
                             </li>
-
-                            <li>
-                                <a href="">Upload Media</a>
-                            </li>
-
                         </ul>
                         <!-- /.nav-second-level -->
                     </li>

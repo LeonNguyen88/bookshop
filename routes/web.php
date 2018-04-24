@@ -1,6 +1,8 @@
 <?php
 
 use App\Category;
+use App\Order;
+use App\Orders_detail;
 use App\Product;
 use App\Product_detail;
 use App\Role;
@@ -16,6 +18,9 @@ use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\User;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -63,17 +68,39 @@ Route::group(['prefix' => 'admin', 'middleware' => 'isAdmin'], function(){
         'edit' => 'admin.product.edit',
         'destroy' => 'admin.product.destroy'
     ]]);
+    Route::resource('/order', 'AdminOrderController', ['names' => [
+        'index' => 'admin.order.index',
+        'create' => 'admin.order.create',
+        'store' => 'admin.order.store',
+        'edit' => 'admin.order.edit',
+        'destroy' => 'admin.order.destroy'
+    ]]);
+    Route::get('/order/detail/{id}', 'AdminOrderController@detail')->name('admin.order.detail');
+    //Route::get('/order/detail/edit/{id}', 'AdminOrderController@editstatus')->name('admin.order.detail');
 });
 Route::get('/aa', function(Request $request){
-    /*$content = Cart::content();
-    print_r($content);*/
-    echo "buon cua anh";
-
+    if($request->has('price')){
+        $price = explode(' ', $request->get('price'));
+        $product = DB::table('products')->whereraw('price-sale > '.$price[0])->whereraw('price-sale < '.$price[1])->get();
+        dd($product);
+    }
+    else echo "10";
 });
 Route::get('/product/{id}', 'ProductController@index')->name('product');
 Route::get('/cart/{id}', 'CartController@add')->name('addtocart');
 Route::get('/cart', 'CartController@index')->name('cart');
 Route::get('/cart/delete/{id}', 'CartController@delete')->name('deletecart');
 Route::get('/cart/decrease/{id}', 'CartController@decrease')->name('decreaseqty');
+Route::get('/transaction', 'TransactionController@index')->name('showtransaction');
+Route::post('/transaction', 'TransactionController@store');
+Route::get('/thank-you', function(){
+    return view('cart.thank-you');
+})->name('thank-you');
+Route::get('/account', 'UserController@account')->name('account');
+Route::patch('/updateaccount/{id}', 'UserController@updateaccount')->name('updateaccount');
+Route::get('/order/history', 'UserController@orderhistory')->name('orderhistory');
+Route::get('/order/history/{id}', 'UserController@orderdetail')->name('orderdetail');
+Route::delete('/order/history/{id}', 'UserController@removeorder')->name('removeorder');
+Route::get('/category/{id}', 'CategoryController@index')->name('category');
 
 

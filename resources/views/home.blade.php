@@ -335,7 +335,7 @@
         @foreach($categories as $category)
             <div class="title-bar">
                 <div class="parentcategory-title">
-                    <a href="">
+                    <a href="{{ route('category', $category->id) }}">
                         {{ mb_strtoupper($category->name, "UTF-8") }}
                     </a>
                 </div>
@@ -345,7 +345,7 @@
                         $sub_categories = App\Category::where('parent_id', $category->id)->orderBy('id', 'desc')->get();
                         ?>
                         @foreach($sub_categories as $sub_category)
-                            <li><a href="">{{ $sub_category->name }}</a></li>
+                            <li><a href="{{ route('category', $sub_category->id) }}">{{ $sub_category->name }}</a></li>
                         @endforeach
                     </ul>
                 </div>

@@ -39,8 +39,8 @@
                             {{ csrf_field() }}
                         </form>
                     </li>
-                    <li><a href="{{ route('register') }}">Lịch sử mua hàng</a></li>
-                    <li><a href="{{ route('register') }}">Thông tin tài khoản</a></li>
+                    <li><a href="{{ route('orderhistory') }}">Lịch sử mua hàng</a></li>
+                    <li><a href="{{ route('account') }}">Thông tin tài khoản</a></li>
                     @if(auth()->user()->isAdmin())
                         <li><a href='{{ route('admin') }}' target='_blank'>Trang quản trị</a></li>
                     @endif
@@ -91,7 +91,7 @@
             <ul class="nav navbar-nav">
                 <li class="active"><a href="{{ route('home') }}">Trang chủ</a></li>
                 @foreach($categories as $category)
-                    <li><a href="#">{{ $category->name }}</a></li>
+                    <li><a href="{{ route('category', $category->id) }}">{{ $category->name }}</a></li>
                 @endforeach
             </ul>
         </div><!--/.nav-collapse -->

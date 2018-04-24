@@ -15,6 +15,6 @@
         }
     }
     function format_money($money){
-        return number_format($money, 0, '.', ',');
+        return number_format($money, 0, ',', '.');
     }
 ?>

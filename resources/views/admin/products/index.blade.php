@@ -36,7 +36,13 @@
                     <td>{{ number_format($product->price - $product->sale, 0, ',', '.') }} VND</td>
                     <td>{{ number_format($product->price, 0, ',', '.') }} VND</td>
                     <td>{{ number_format($product->sale, 0, ',', '.') }} VND</td>
-                    <td>{{ $product->quantity }}</td>
+                    <td>
+                        @if($product->quantity == 0)
+                            <div style="color: red; font-weight: bold">{{ $product->quantity }}</div>
+                        @else
+                            {{ $product->quantity }}
+                        @endif
+                    </td>
                     <td>
                         <a href="{{ route('admin.product.edit', $product->id) }}" class="btn btn-success">Sửa</a>
                         {!! Form::open(['method' => 'DELETE', 'action' => ['AdminProductController@destroy', $product->id ]]) !!}

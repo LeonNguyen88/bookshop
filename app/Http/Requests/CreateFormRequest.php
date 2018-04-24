@@ -24,7 +24,20 @@ class CreateFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required|min:5'
+            'email' => 'required|string|email|max:255',
+            'realname' => 'required|min:3|string',
+            'phone' => 'required|numeric|min:8',
+            'address' => 'required|string|min:20'
+        ];
+    }
+    public function messages()
+    {
+        return [
+            'required' => ':attribute không được chừa trống',
+            'string' => ':attribute phải là một chuỗi kí tự',
+            'min' => ':attribute không được ít hơn :min kí tự',
+            'max' => ':attribute không được nhiều hơn :max kí tự',
+            'numeric' => ':attribute phải là số'
         ];
     }
 }
