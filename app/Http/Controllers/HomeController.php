@@ -34,6 +34,7 @@ class HomeController extends Controller
         $products_category = Product::wherehas('category', function($query) use ($categories){
             $query->where('category_id', $categories);
         })->get();
+        //$hot_products = Product::
         $sale_products = Product::orderBy('sale', 'desc')->take(8)->get();
         return view('home', compact('user', 'categories', 'latest_products', 'sale_products'));
     }

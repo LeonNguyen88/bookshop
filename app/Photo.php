@@ -6,9 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Photo extends Model
 {
-    protected $fillable = ['photo_url'];
+    protected $fillable = ['photo_url', 'product_id', 'is_cover'];
     public function product(){
-        return $this->hasMany('App\Product', 'photos_id');
+        return $this->belongsTo('App\Product');
     }
     public $directory = "/images/";
     public function getPhotoUrlAttribute($photo){

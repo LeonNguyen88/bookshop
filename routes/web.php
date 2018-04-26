@@ -79,12 +79,10 @@ Route::group(['prefix' => 'admin', 'middleware' => 'isAdmin'], function(){
     //Route::get('/order/detail/edit/{id}', 'AdminOrderController@editstatus')->name('admin.order.detail');
 });
 Route::get('/aa', function(Request $request){
-    if($request->has('price')){
-        $price = explode(' ', $request->get('price'));
-        $product = DB::table('products')->whereraw('price-sale > '.$price[0])->whereraw('price-sale < '.$price[1])->get();
-        dd($product);
+    $product = Product::find(1);
+    foreach($product->photo as $photo){
+        echo $photo->photo_url;
     }
-    else echo "10";
 });
 Route::get('/product/{id}', 'ProductController@index')->name('product');
 Route::get('/cart/{id}', 'CartController@add')->name('addtocart');

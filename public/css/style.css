@@ -225,6 +225,15 @@ a:hover{
 .fa-star{
     color: #ffd92d;
 }
+.thumbnail-item-bar{
+    margin-top: 10px;
+}
+.thumbnail-item{
+    margin-right: 3px;
+}
+.thumbnail-item:last-child{
+    margin-right: 0;
+}
 /* Swiper slider*/
 .swiper-button-prev, .swiper-button-next{
     pointer-events: auto !important;

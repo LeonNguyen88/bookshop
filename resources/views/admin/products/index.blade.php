@@ -6,7 +6,7 @@
         <thead>
             <th>STT</th>
             <th>Tên sản phẩm</th>
-            <th>Hình sản phẩm</th>
+            <th>Hình bià sản phẩm</th>
             <th>Chuyên mục</th>
             <th>Giá tiền</th>
             <th>Giá gốc</th>
@@ -19,7 +19,12 @@
                 <tr>
                     <td>{{ $product->id }}</td>
                     <td><a href="{{ route('product', $product->id) }}" target="_blank">{{ $product->name }}</a></td>
-                    <td><img src="{{ $product->photo->photo_url }}" width="72" /></td>
+
+                    @foreach($product->photo as $photo)
+                        @if($photo->is_cover == 1)
+                            <td><img src="{{ $photo->photo_url }}" width="72" /></td>
+                        @endif
+                    @endforeach
                     <td>
                         @if(count($product->category) > 1)
                             <ul class="category-list">

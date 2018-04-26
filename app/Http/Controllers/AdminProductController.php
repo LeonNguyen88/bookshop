@@ -42,15 +42,20 @@ class AdminProductController extends Controller
     public function store(Request $request)
     {
         $input = $request->all();
-        if($file = $request->file('photo_url')){
+        $product = Product::create(['name' => $input['name'], 'price' => $input['price'], 'sale' => $input['sale'], 'description' => $input['description'], 'quantity' => $input['quantity']]);
+        Product_detail::create(['product_id' => $product->id, 'issuer' => $input['issuer'], 'publisher' => $input['publisher'], 'author' => $input['author'], 'size' => $input['size'], 'cover' => $input['cover'], 'num_page' => $input['num_page'], 'date_publish' => $input['date_publish'], 'status' => $input['status']]);
+        if($file = $request->file('cover_url')){
             $name = $file->getClientOriginalName();
             $file->move('images', $name);
-            $photo = Photo::create(['photo_url' => $name]);
-            $input['photo_url'] = $name;
-            $input['photo_id'] = $photo->id;
+            Photo::create(['photo_url' => $name, 'product_id' => $product->id, 'is_cover' => 1]);
         }
-        $product = Product::create(['name' => $input['name'], 'price' => $input['price'], 'sale' => $input['sale'], 'photos_id' => $input['photo_id'], 'description' => $input['description'], 'quantity' => $input['quantity']]);
-        Product_detail::create(['product_id' => $product->id, 'issuer' => $input['issuer'], 'publisher' => $input['publisher'], 'author' => $input['author'], 'size' => $input['size'], 'cover' => $input['cover'], 'num_page' => $input['num_page'], 'date_publish' => $input['date_publish'], 'status' => $input['status']]);
+        if($file = $request->file('photo_url')){
+            foreach($request->photo_url as $photo){
+                $name = $photo->getClientOriginalName();
+                $photo->move('images', $name);
+                Photo::create(['photo_url' => $name, 'product_id' => $product->id]);
+            }
+        }
         $product->category()->attach($input['category_id']);
         return redirect('/admin/product');
     }
@@ -92,9 +97,25 @@ class AdminProductController extends Controller
         $product = Product::findOrFail($id);
         $update_product = $request->only(['name', 'price', 'sale', 'description', 'quantity']);
         $update_product_detail = $request->only(['issuer', 'publisher', 'author', 'size', 'cover', 'num_page', 'date_publish']);
-        if($photo = $request->file('photo_url')){
+        if($photo = $request->file('cover_url')){
             $name = $photo->getClientOriginalName();
             $photo->move('images', $name);
+            foreach($product->photo as $photo){
+                if($photo->is_cover == 1){
+                    $photo->update(['photo_url' => $name]);
+                }
+            }
+        }
+        if($photo = $request->file('photo_url')){
+            foreach($request->photo_url as $photo){
+                $name = $photo->getClientOriginalName();
+                $photo->move('images', $name);
+            }
+            foreach($product->photo as $photo){
+                if($photo->is_cover == 0){
+
+                }
+            }
             $new_photo = $product->photo->create(['photo_url' => $name]);
             $product->update(['photos_id' => $new_photo->id]);
         }

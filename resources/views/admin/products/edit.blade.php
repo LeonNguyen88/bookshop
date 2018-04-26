@@ -18,11 +18,27 @@
         </div>
         <div class="form-group">
             {!! Form::label(null, 'Ảnh bìa cũ: ') !!}
-            <img src="{{ $product->photo->photo_url }}" width="150" />
+            @foreach($product->photo as $photo)
+                @if($photo->is_cover == 1)
+                    <img src="{{ $photo->photo_url }}" width="150" />
+                @endif
+            @endforeach
         </div>
         <div class="form-group">
-            {!! Form::label('photo_url', 'Ảnh bìa mới: ') !!}
-            {!! Form::file('photo_url') !!}
+            {!! Form::label('cover_url', 'Ảnh bìa mới: ') !!}
+            {!! Form::file('cover_url') !!}
+        </div>
+        <div class="form-group">
+            {!! Form::label(null, 'Các ảnh phụ cũ: ') !!}
+            @foreach($product->photo as $photo)
+                @if($photo->is_cover == 0)
+                    <img src="{{ $photo->photo_url }}" width="100" height="100" />
+                @endif
+            @endforeach
+        </div>
+        <div class="form-group">
+            {!! Form::label('photo_url', 'Các ảnh phụ mới: ') !!}
+            {!! Form::file('photo_url[]', ['multiple']) !!}
         </div>
         <div class="form-group">
             {!! Form::label('price', 'Giá gốc sản phẩm: ') !!}

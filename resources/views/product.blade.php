@@ -2,9 +2,21 @@
 
 @section('content')
 <div class="container product-page-top">
-    <div class="col-md-4">
-        <img src="{{ $product->photo->photo_url }}" width="400" />
-    </div>
+        <div class="col-md-4">
+            @foreach($product->photo as $photo)
+                @if($photo->is_cover == 1)
+                    <img src="{{ $photo->photo_url }}" width="400" />
+                @endif
+            @endforeach
+            <div class="thumbnail-item-bar">
+                @foreach($product->photo as $photo)
+                    @if($photo->is_cover == 0)
+                        <img class="thumbnail-item" src="{{ $photo->photo_url }}" width="90" height="90" />
+                    @endif
+                @endforeach
+            </div>
+        </div>
+
     <div class="col-md-8">
         <div class="info-box-header">
             <div class="col-md-10 info-box-title">
@@ -108,7 +120,11 @@
                         <div class="col-md-2 product-item">
                             <a href="{{ route('product', $related_product->id) }}" title="{{ $related_product->name }}">
                                 <div class="product-image">
-                                    <img class="product-thumbnail" src="{{ $related_product->photo->photo_url }}" />
+                                    @foreach($related_product->photo as $photo)
+                                        @if($photo->is_cover == 1)
+                                            <img class="product-thumbnail" src="{{ $photo->photo_url }}" />
+                                        @endif
+                                    @endforeach
                                 </div>
                                 <div class="product-title">
                                     {{ limit_character($related_product->name) }}

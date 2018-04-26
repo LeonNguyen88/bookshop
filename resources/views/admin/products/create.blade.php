@@ -17,8 +17,12 @@
             {!! Form::text('author', null, ['class' => 'form-control', 'required' => 'required']) !!}
         </div>
         <div class="form-group">
-            {!! Form::label('photo_url', 'Ảnh bìa: ') !!}
-            {!! Form::file('photo_url', ['required' => 'required']) !!}
+            {!! Form::label('cover_url', 'Ảnh bìa: ') !!}
+            {!! Form::file('cover_url', ['required' => 'required']) !!}
+        </div>
+        <div class="form-group">
+            {!! Form::label('photo_url', 'Ảnh phụ: ') !!}
+            {!! Form::file('photo_url[]', ['multiple']) !!}
         </div>
         <div class="form-group">
             {!! Form::label('price', 'Giá gốc sản phẩm: ') !!}
