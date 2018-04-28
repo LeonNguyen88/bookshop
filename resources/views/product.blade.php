@@ -9,10 +9,8 @@
                 @endif
             @endforeach
             <div class="thumbnail-item-bar">
-                @foreach($product->photo as $photo)
-                    @if($photo->is_cover == 0)
-                        <img class="thumbnail-item" src="{{ $photo->photo_url }}" width="90" height="90" />
-                    @endif
+                @foreach($thumbnails as $thumbnail)
+                    <img class="thumbnail-item" src="{{ $thumbnail->photo_url }}" width="90" height="90" />
                 @endforeach
             </div>
         </div>

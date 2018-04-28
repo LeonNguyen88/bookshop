@@ -107,17 +107,16 @@ class AdminProductController extends Controller
             }
         }
         if($photo = $request->file('photo_url')){
+            foreach($product->photo as $photo){
+                if($photo->is_cover == 0){
+                    $photo->delete();
+                }
+            }
             foreach($request->photo_url as $photo){
                 $name = $photo->getClientOriginalName();
                 $photo->move('images', $name);
+                Photo::create(['photo_url' => $name, 'product_id' => $product->id]);
             }
-            foreach($product->photo as $photo){
-                if($photo->is_cover == 0){
-
-                }
-            }
-            $new_photo = $product->photo->create(['photo_url' => $name]);
-            $product->update(['photos_id' => $new_photo->id]);
         }
         $product->update($update_product);
         $product->product_detail->update($update_product_detail);
