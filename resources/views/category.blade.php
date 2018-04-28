@@ -92,7 +92,11 @@
                 <div class="col-md-3">
                     <a href="{{ route('product', $product->id) }}" title="{{ $product->name }}">
                         <div class="product-image">
-                            <img class="product-thumbnail" src="{{ $product->photo->photo_url }}" />
+                            @foreach($product->photo as $photo)
+                                @if($photo->is_cover == 1)
+                                    <img class="product-thumbnail" src="{{ $photo->photo_url }}" />
+                                @endif
+                            @endforeach
                         </div>
                         <div class="product-title">
                             {{ limit_character($product->name) }}

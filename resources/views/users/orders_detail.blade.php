@@ -20,7 +20,13 @@
             <tr>
                 <td>{{ $order->product->id }}</td>
                 <td>{{ $order->product->name }}</td>
-                <td><img src="{{ $order->product->photo->photo_url }}" width="72" /></td>
+                <td>
+                    @foreach($order->product->photo as $photo)
+                        @if($photo->is_cover == 1)
+                            <img src="{{ $photo->photo_url }}" width="72" />
+                        @endif
+                    @endforeach
+                </td>
                 <td>{{ format_money($order->price) }} VND</td>
                 <td>{{ $order->quantity }}</td>
                 <td>
