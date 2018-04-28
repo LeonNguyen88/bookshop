@@ -8,7 +8,11 @@
         <div class="product-item">
             <a href="{{ route('product', $sale_product->id) }}" title="{{ $sale_product->name }}">
                 <div class="product-image">
-                    <img class="product-thumbnail" src="{{ $sale_product->photo->photo_url }}" />
+                    @foreach($sale_product->photo as $photo)
+                        @if($photo->is_cover == 1)
+                            <img class="product-thumbnail" src="{{ $photo->photo_url }}" />
+                        @endif
+                    @endforeach
                     <span class="discount">
                             <img src="{{ asset('images/sale-tag.png') }}" width="60" />
                         </span>

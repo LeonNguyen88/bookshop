@@ -59,206 +59,37 @@
         <div class="product-box">
             <div class="swiper-container">
                 <div class="swiper-wrapper">
-                    <div class="swiper-slide">
-                        <div class="col-md-3 product-item">
-                            <a href="" title="Quảng Cáo Không Nói Láo">
-                                <div class="product-image">
-                                    <img class="product-thumbnail" src="{{ asset('images/bia-qcknl.u3059.d20171009.t152009.562997.jpg') }}" />
-                                </div>
-                                <div class="product-title">
-                                    Quảng Cáo Không Nói...
-                                </div>
-                                <div class="product-priceold">
-                                    149.000 VND
-                                </div>
-                                <div class="product-price">
-                                    111.750 VND
-                                </div>
-                                <div class="product-review">
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                </div>
-                            </a>
+                    @foreach($hot_products as $hot_product)
+                        <div class="swiper-slide">
+                            <div class="col-md-3 product-item">
+                                <a href="{{ route('product', $hot_product->id) }}" title="{{ $hot_product->name }}">
+                                    <div class="product-image">
+                                        @foreach($hot_product->photo as $photo)
+                                            @if($photo->is_cover == 1)
+                                                <img class="product-thumbnail" src="{{ $photo->photo_url }}" />
+                                            @endif
+                                        @endforeach
+                                    </div>
+                                    <div class="product-title">
+                                        {{ limit_character($hot_product->name) }}
+                                    </div>
+                                    <div class="product-priceold">
+                                        {{ format_money($hot_product->price) }} VND
+                                    </div>
+                                    <div class="product-price">
+                                        {{ format_money($hot_product->price - $hot_product->sale) }} VND
+                                    </div>
+                                    <div class="product-review">
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                    </div>
+                                </a>
+                            </div>
                         </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="col-md-3 product-item">
-                            <a href="" title="Quảng Cáo Không Nói Láo">
-                                <div class="product-image">
-                                    <img class="product-thumbnail" src="{{ asset('images/bia-qcknl.u3059.d20171009.t152009.562997.jpg') }}" />
-                                </div>
-                                <div class="product-title">
-                                    Quảng Cáo Không Nói...
-                                </div>
-                                <div class="product-priceold">
-                                    149.000 VND
-                                </div>
-                                <div class="product-price">
-                                    111.750 VND
-                                </div>
-                                <div class="product-review">
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="col-md-3 product-item">
-                            <a href="" title="Quảng Cáo Không Nói Láo">
-                                <div class="product-image">
-                                    <img class="product-thumbnail" src="{{ asset('images/bia-qcknl.u3059.d20171009.t152009.562997.jpg') }}" />
-                                </div>
-                                <div class="product-title">
-                                    Quảng Cáo Không Nói...
-                                </div>
-                                <div class="product-priceold">
-                                    149.000 VND
-                                </div>
-                                <div class="product-price">
-                                    111.750 VND
-                                </div>
-                                <div class="product-review">
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="col-md-3 product-item">
-                            <a href="" title="Quảng Cáo Không Nói Láo">
-                                <div class="product-image">
-                                    <img class="product-thumbnail" src="{{ asset('images/bia-qcknl.u3059.d20171009.t152009.562997.jpg') }}" />
-                                </div>
-                                <div class="product-title">
-                                    Quảng Cáo Không Nói...
-                                </div>
-                                <div class="product-priceold">
-                                    149.000 VND
-                                </div>
-                                <div class="product-price">
-                                    111.750 VND
-                                </div>
-                                <div class="product-review">
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="col-md-3 product-item">
-                            <a href="" title="Quảng Cáo Không Nói Láo">
-                                <div class="product-image">
-                                    <img class="product-thumbnail" src="{{ asset('images/bia-qcknl.u3059.d20171009.t152009.562997.jpg') }}" />
-                                </div>
-                                <div class="product-title">
-                                    Quảng Cáo Không Nói...
-                                </div>
-                                <div class="product-priceold">
-                                    149.000 VND
-                                </div>
-                                <div class="product-price">
-                                    111.750 VND
-                                </div>
-                                <div class="product-review">
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="col-md-3 product-item">
-                            <a href="" title="Quảng Cáo Không Nói Láo">
-                                <div class="product-image">
-                                    <img class="product-thumbnail" src="{{ asset('images/bia-qcknl.u3059.d20171009.t152009.562997.jpg') }}" />
-                                </div>
-                                <div class="product-title">
-                                    Quảng Cáo Không Nói...
-                                </div>
-                                <div class="product-priceold">
-                                    149.000 VND
-                                </div>
-                                <div class="product-price">
-                                    111.750 VND
-                                </div>
-                                <div class="product-review">
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="col-md-3 product-item">
-                            <a href="" title="Quảng Cáo Không Nói Láo">
-                                <div class="product-image">
-                                    <img class="product-thumbnail" src="{{ asset('images/bia-qcknl.u3059.d20171009.t152009.562997.jpg') }}" />
-                                </div>
-                                <div class="product-title">
-                                    Quảng Cáo Không Nói...
-                                </div>
-                                <div class="product-priceold">
-                                    149.000 VND
-                                </div>
-                                <div class="product-price">
-                                    111.750 VND
-                                </div>
-                                <div class="product-review">
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="col-md-3 product-item">
-                            <a href="" title="Quảng Cáo Không Nói Láo">
-                                <div class="product-image">
-                                    <img class="product-thumbnail" src="{{ asset('images/bia-qcknl.u3059.d20171009.t152009.562997.jpg') }}" />
-                                </div>
-                                <div class="product-title">
-                                    Quảng Cáo Không Nói...
-                                </div>
-                                <div class="product-priceold">
-                                    149.000 VND
-                                </div>
-                                <div class="product-price">
-                                    111.750 VND
-                                </div>
-                                <div class="product-review">
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
                 <div class="swiper-button-next"></div>
                 <div class="swiper-button-prev"></div>
@@ -292,7 +123,11 @@
                             <div class="col-md-3 product-item">
                                 <a href="{{ route('product', $latest_product->id) }}" title="{{ $latest_product->name }}">
                                     <div class="product-image">
-                                        <img class="product-thumbnail" src="{{ $latest_product->photo->photo_url }}" />
+                                        @foreach($latest_product->photo as $photo)
+                                            @if($photo->is_cover == 1)
+                                                <img class="product-thumbnail" src="{{ $photo->photo_url }}" />
+                                            @endif
+                                        @endforeach
                                     </div>
                                     <div class="product-title">
                                         {{ limit_character($latest_product->name) }}
@@ -360,7 +195,11 @@
                     <div class="col-md-3">
                         <a href="{{ route('product', $product_category->id) }}" title="{{ $product_category->name }}">
                             <div class="product-image">
-                                <img class="product-thumbnail" src="{{ $product_category->photo->photo_url }}" />
+                                @foreach($product_category->photo as $photo)
+                                    @if($photo->is_cover == 1)
+                                        <img class="product-thumbnail" src="{{ $photo->photo_url }}" />
+                                    @endif
+                                @endforeach
                             </div>
                             <div class="product-title">
                                 {{ limit_character($product_category->name) }}

@@ -16,6 +16,9 @@ class Product extends Model
     public function product_detail(){
         return $this->hasOne('App\Product_detail');
     }
+    public function orders_detail(){
+        return $this->hasMany('App\Orders_detail', 'products_id');
+    }
     /*public function getPriceAttribute($value){
         return number_format($value, 0, ',', '.');
     }

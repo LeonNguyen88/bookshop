@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use App\Orders_detail;
 use App\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -34,9 +35,12 @@ class HomeController extends Controller
         $products_category = Product::wherehas('category', function($query) use ($categories){
             $query->where('category_id', $categories);
         })->get();
-        //$hot_products = Product::
+        //$hot_products = Orders_detail::orderByRaw('sum(quantity) DESC')->groupBy('products_id')->take(8)->get();
+        $hot_products = Product::wherehas('Orders_detail', function($query){
+            $query->orderByRaw('sum(orders_details.quantity) DESC')->groupBy('orders_details.products_id');
+        })->take(8)->get();
         $sale_products = Product::orderBy('sale', 'desc')->take(8)->get();
-        return view('home', compact('user', 'categories', 'latest_products', 'sale_products'));
+        return view('home', compact('user', 'categories', 'latest_products', 'sale_products', 'hot_products'));
     }
 
 }
