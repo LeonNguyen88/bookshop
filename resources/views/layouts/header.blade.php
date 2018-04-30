@@ -19,7 +19,7 @@
     <link href="{{ asset('css/swiper.min.css') }}" rel="stylesheet" />
     <link href="{{ asset('css/style.css') }}" rel="stylesheet" />
     <!-- js --->
-    <script src="{{ asset('js/jquery.js') }}"></script>
+    <script src="{{ asset('js/jquery-3.3.1.min.js') }}"></script>
     @yield('js')
 </head>
 <body>
@@ -75,6 +75,10 @@
                 </a>
             </div>
         </div>
+    </div>
+    <div class="alert alert-success alert-dismissible cart-message">
+        <a href="#" class="close" onclick="$('.alert').hide()" aria-label="close">&times;</a>
+        <strong>Thêm vào giỏ hàng thành công !</strong> <div>Click vào giỏ hàng để xem chi tiết.</div>
     </div>
 </div>
 <nav class="navbar navbar-default menu">

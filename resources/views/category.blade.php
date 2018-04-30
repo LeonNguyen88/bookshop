@@ -1,5 +1,7 @@
 @extends('layouts.front-end3')
-
+@section('js')
+    <script src="{{ asset('js/myscript.js') }}"></script>
+@stop
 @section('content')
     <div class="container">
         <section class="slider">
@@ -114,7 +116,7 @@
                             <span class="fa fa-star checked"></span>
                             <span class="fa fa-star checked"></span>
                         </div>
-                        <a href="{{ route('addtocart', $product->id) }}" class="btn btn-primary addtocart-btn">
+                        <a href="{{ route('addtocart', $product->id) }}" class="btn btn-primary addtocart-btn add-to-cart-js" data-id="{{ $product->id }}">
                             <span class="fa fas fa-cart-plus"></span>
                             <span class="addtocart">Thêm vào giỏ hàng</span>
                         </a>

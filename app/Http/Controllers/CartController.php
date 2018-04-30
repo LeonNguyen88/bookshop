@@ -27,21 +27,26 @@ class CartController extends Controller
     public function add($id){
         $product = Product::whereId($id)->first();
         $cart_qty = 0;
+        foreach($product->photo as $photo){
+            if($photo->is_cover == 1){
+                $image = $photo->photo_url;
+            }
+        }
         foreach(Cart::content() as $item){
             if($item->id == $id){
                 $cart_qty = $item->qty;
             }
         }
         if($product->quantity == 0 || $cart_qty >= $product->quantity){
-            echo "<script>alert('Xin lỗi khách hàng, sản phẩm này hiện tại đã hết hàng.'); history.go(-1);</script>";
+            return "Xin lỗi khách hàng, sản phẩm này hiện tại đã hết hàng.";
         }
         else if(Cart::count() == 7){
-            echo "<script>alert('Khách hàng vui lòng thanh toán giỏ hàng trước khi mua tiếp !'); location.href='/cart';</script>";
+            return "Khách hàng vui lòng thanh toán giỏ hàng trước khi mua tiếp !";
         }
         else {
-            Cart::add($id, $product->name, 1, $product->price - $product->sale, ['image' => $product->photo->photo_url, 'old_price' => $product->price, 'sale' => $product->sale])->associate('App\Product');
+            Cart::add($id, $product->name, 1, $product->price - $product->sale, ['image' => $image, 'old_price' => $product->price, 'sale' => $product->sale])->associate('App\Product');
             //Product::find($id)->update(['quantity' => $product->quantity - 1]);
-            return redirect()->route('cart');
+            return Cart::count();
         }
     }
     public function delete($id){

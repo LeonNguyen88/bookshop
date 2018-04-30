@@ -1,5 +1,7 @@
 @extends('layouts.front-end3')
-
+@section('js')
+    <script src="{{ asset('js/myscript.js') }}"></script>
+@stop
 @section('content')
 <div class="container product-page-top">
         <div class="col-md-4">
@@ -57,7 +59,7 @@
                     Gọi đặt mua: 0120 549 1108
                 </p>
             </div>
-            <a href="{{ route('addtocart', $product->id) }}" class="btn btn-danger"><span><img class="add-shopping-cart-icon" src="{{ asset('images/add-shopping-cart.png') }}" /></span>Thêm vào giỏ hàng</a>
+            <a href="{{ route('addtocart', $product->id) }}" class="btn btn-danger add-to-cart-js" data-id="{{ $product->id }}"><span><img class="add-shopping-cart-icon" src="{{ asset('images/add-shopping-cart.png') }}" /></span>Thêm vào giỏ hàng</a>
         </div>
     </div>
 </div>

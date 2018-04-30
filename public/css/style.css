@@ -94,6 +94,14 @@ a:hover{
     border-radius: 3px;
 }
 /* Menu */
+.cart-message{
+    position: absolute;
+    top: 107px;
+    right: 80px;
+    z-index: 9999999;
+    width: 205px;
+    display: none;
+}
 .menu{
     background: #f36f36;
     border: 0;
