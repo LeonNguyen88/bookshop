@@ -18,12 +18,21 @@
         </div>
         <div class="form-group">
             {!! Form::label('cover_url', 'Ảnh bìa: ') !!}
-            {!! Form::file('cover_url', ['required' => 'required']) !!}
+            {!! Form::file('cover_url', ['required' => 'required', 'onchange' => 'preview_cover(event)']) !!}
+        </div>
+        <div class="form-group">
+            {!! Form::label(null, 'Xem trước ảnh bìa') !!}
+            <div id="preview-cover"></div>
         </div>
         <div class="form-group">
             {!! Form::label('photo_url', 'Ảnh phụ: ') !!}
-            {!! Form::file('photo_url[]', ['multiple']) !!}
+            {!! Form::file('photo_url[]', ['multiple', 'onchange' => 'preview_thumbnail(event)']) !!}
         </div>
+        <div class="form-group">
+            {!! Form::label(null, 'Xem trước các ảnh phụ') !!}
+            <div id="preview-photo"></div>
+        </div>
+        <div style="clear: left"></div>
         <div class="form-group">
             {!! Form::label('price', 'Giá gốc sản phẩm: ') !!}
             {!! Form::number('price', null, ['class' => 'form-control']) !!}
@@ -74,4 +83,18 @@
         {{ csrf_field() }}
         {!! Form::close() !!}
     </div>
+@stop
+@section('footer')
+    <script src="{{ asset('js/preview-image.js') }}"></script>
+@stop
+@section('custom-css')
+    <style>
+        .preview-thumbnail{
+            height: 200px;
+        }
+        .preview-thumbnail-item{
+            float: left;
+            margin: 0 20px 20px 0;
+        }
+    </style>
 @stop

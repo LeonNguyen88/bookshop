@@ -20,7 +20,7 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
 
-
+    @yield('custom-css')
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -355,6 +355,7 @@
 
 <!-- jQuery -->
 <script src="{{asset('js/app.js')}}"></script>
+<script src="{{ asset('js/jquery-3.3.1.min.js') }}"></script>
 <script src="{{asset('js/metisMenu.min.js')}}"></script>
 <script src="{{asset('js/sb-admin-2.js')}}"></script>
 @yield('footer')
