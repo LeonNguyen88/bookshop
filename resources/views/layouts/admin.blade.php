@@ -354,10 +354,11 @@
 <!-- /#wrapper -->
 
 <!-- jQuery -->
-<script src="{{asset('js/app.js')}}"></script>
 <script src="{{ asset('js/jquery-3.3.1.min.js') }}"></script>
+<script src="{{asset('js/app.js')}}"></script>
 <script src="{{asset('js/metisMenu.min.js')}}"></script>
 <script src="{{asset('js/sb-admin-2.js')}}"></script>
+
 @yield('footer')
 
 
