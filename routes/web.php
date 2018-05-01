@@ -85,10 +85,10 @@ Route::get('/aa', function(Request $request){
     }
 });
 Route::get('/product/{id}', 'ProductController@index')->name('product');
-Route::get('/cart/{id}', 'CartController@add')->name('addtocart');
+Route::post('/cart/{id}', 'CartController@add')->name('addtocart');
 Route::get('/cart', 'CartController@index')->name('cart');
-Route::get('/cart/delete/{id}', 'CartController@delete')->name('deletecart');
-Route::get('/cart/decrease/{id}', 'CartController@decrease')->name('decreaseqty');
+Route::post('/cart/delete/{id}', 'CartController@delete')->name('deletecart');
+Route::post('/cart/decrease/{id}', 'CartController@decrease')->name('decreaseqty');
 Route::get('/transaction', 'TransactionController@index')->name('showtransaction');
 Route::post('/transaction', 'TransactionController@store');
 Route::get('/thank-you', function(){

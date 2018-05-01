@@ -24,8 +24,8 @@ class CartController extends Controller
         }
         return view('cart.index', compact('categories', 'carts', 'total', 'count', 'sum_price_old', 'sum_sale'));
     }
-    public function add($id){
-        $product = Product::whereId($id)->first();
+    public function add(Request $request){
+        $product = Product::whereId($request->id)->first();
         $cart_qty = 0;
         foreach($product->photo as $photo){
             if($photo->is_cover == 1){
@@ -33,7 +33,7 @@ class CartController extends Controller
             }
         }
         foreach(Cart::content() as $item){
-            if($item->id == $id){
+            if($item->id == $request->id){
                 $cart_qty = $item->qty;
             }
         }
@@ -44,23 +44,47 @@ class CartController extends Controller
             return "Khách hàng vui lòng thanh toán giỏ hàng trước khi mua tiếp !";
         }
         else {
-            Cart::add($id, $product->name, 1, $product->price - $product->sale, ['image' => $image, 'old_price' => $product->price, 'sale' => $product->sale])->associate('App\Product');
-            //Product::find($id)->update(['quantity' => $product->quantity - 1]);
-            return Cart::count();
+            Cart::add($request->id, $product->name, 1, $product->price - $product->sale, ['image' => $image, 'old_price' => $product->price, 'sale' => $product->sale])->associate('App\Product');
+            $item = Cart::content()->where('id', $request->id)->first();
+            $cart = Cart::content();
+            $count = Cart::count();
+            $total = Cart::subtotal(0, '.', ',');
+            $sum_price_old = 0;
+            $sum_sale = 0;
+            foreach($cart as $data){
+                $sum_price_old = $sum_price_old + $data->options->old_price * $data->qty;
+                $sum_sale = $sum_sale + $data->options->sale * $data->qty;
+            }
+            return ['item_qty' => $item->qty, 'item_price' => $item->qty * $item->price, 'sum_price_old' => $sum_price_old, 'sum_sale' => $sum_sale, 'total_qty' => $count, 'subtotal' => $total];
         }
     }
-    public function delete($id){
-        $item = Cart::content()->where('id', $id)->first();
-        //$product = Product::find($id);
-        Cart::remove($item->rowId);
-        //$product->update(['quantity' => $product->quantity + $item->qty]);
-        return redirect()->route('cart');
-    }
-    public function decrease($id){
-        $item = Cart::content()->where('id', $id)->first();
+    public function decrease(Request $request){
+        $item = Cart::content()->where('id', $request->id)->first();
         //$product = Product::find($id);
         Cart::update($item->rowId, $item->qty - 1);
-        //$product->update(['quantity' => $product->quantity + 1]);
-        return redirect()->route('cart');
+        $cart = Cart::content();
+        $count = Cart::count();
+        $total = Cart::subtotal(0, '.', ',');
+        $sum_price_old = 0;
+        $sum_sale = 0;
+        foreach($cart as $data){
+            $sum_price_old = $sum_price_old + $data->options->old_price * $data->qty;
+            $sum_sale = $sum_sale + $data->options->sale * $data->qty;
+        }
+        return ['item_qty' => $item->qty, 'item_price' => $item->qty * $item->price, 'sum_price_old' => $sum_price_old, 'sum_sale' => $sum_sale, 'total_qty' => $count, 'subtotal' => $total];
+    }
+    public function delete(Request $request){
+        $item = Cart::content()->where('id', $request->id)->first();
+        Cart::remove($item->rowId);
+        $cart = Cart::content();
+        $count = Cart::count();
+        $total = Cart::subtotal(0, '.', ',');
+        $sum_price_old = 0;
+        $sum_sale = 0;
+        foreach($cart as $data){
+            $sum_price_old = $sum_price_old + $data->options->old_price * $data->qty;
+            $sum_sale = $sum_sale + $data->options->sale * $data->qty;
+        }
+        return ['item_qty' => $item->qty, 'item_price' => $item->qty * $item->price, 'sum_price_old' => $sum_price_old, 'sum_sale' => $sum_sale, 'total_qty' => $count, 'subtotal' => $total];
     }
 }
