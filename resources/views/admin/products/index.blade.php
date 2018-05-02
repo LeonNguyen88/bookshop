@@ -26,14 +26,14 @@
                         @endif
                     @endforeach
                     <td>
-                        @if(count($product->category) > 1)
+                        @if(count($product->categories) > 1)
                             <ul class="category-list">
-                                @foreach($product->category as $category)
+                                @foreach($product->categories as $category)
                                     <li>{{ $category->name }}</li>
                                 @endforeach
                             </ul>
                         @else
-                            @foreach($product->category as $category)
+                            @foreach($product->categories as $category)
                                 {{ $category->name }}
                             @endforeach
                         @endif

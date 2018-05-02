@@ -87,11 +87,11 @@ class AdminUserController extends Controller
         return redirect('/admin/user');
     }
     public function promote($id){
-        User::whereId($id)->update(['level' => 1]);
+        User::whereId($id)->update(['role_id' => 1]);
         return redirect('/admin/user');
     }
     public function demote($id){
-        User::whereId($id)->update(['level' => 2]);
+        User::whereId($id)->update(['role_id' => 2]);
         return redirect('/admin/user');
     }
 }

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Order;
-use App\Orders_detail;
+use App\Order_detail;
 use App\Product;
 use App\User;
 use Illuminate\Http\Request;
@@ -24,18 +24,18 @@ class UserController extends Controller
         return redirect()->route('account');
     }
     public function orderhistory(){
-        $orders = Order::where('users_id', Auth::user()->id)->orderBy('id', 'desc')->get();
+        $orders = Order::where('user_id', Auth::user()->id)->orderBy('id', 'desc')->get();
         return view('users.order', compact('orders'));
     }
     public function orderdetail($id){
-        $orders = Orders_detail::where('orders_id', $id)->get();
+        $orders = Order_detail::where('order_id', $id)->get();
         return view('users.orders_detail', compact('orders'));
     }
     public function removeorder($id){
         $order = Order::find($id);
         if($order->status == "Chưa giao hàng"){
-            foreach($order->orders_detail as $item){
-                $product = Product::find($item->products_id);
+            foreach($order->order_details as $item){
+                $product = Product::find($item->product_id);
                 $product->update(['quantity' => $product->quantity + $item->quantity]);
             }
             $order->delete();

@@ -14,9 +14,9 @@ class ProductController extends Controller
         $categories = Category::where('parent_id', 0)->get();
         $product = Product::findOrFail($id);
         $thumbnails = Photo::where('product_id', $id)->where('is_cover', 0)->orderBy('id', 'desc')->take(4)->get();
-        $category_of_product = $product->category->pluck('id');
-        $related_products = Product::whereHas('category', function($query) use($product, $category_of_product) {
-            $query->whereIn('category.id', $category_of_product)->where('products.id', '<>', $product->id);
+        $category_of_product = $product->categories->pluck('id');
+        $related_products = Product::whereHas('categories', function($query) use($product, $category_of_product) {
+            $query->whereIn('categories.id', $category_of_product)->where('products.id', '<>', $product->id);
         })->get();
         return view('product', compact( 'categories', 'product', 'related_products', 'thumbnails'));
     }

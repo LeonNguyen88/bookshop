@@ -21,7 +21,7 @@
     </tr>
     </thead>
     <tbody>
-    @foreach($orders->orders_detail as $item)
+    @foreach($orders->order_details as $item)
         <tr>
             <td>{{ $item->product->name }}</td>
             <td>{{ format_money($item->price) }} VND</td>

@@ -2,7 +2,7 @@
 
 use App\Category;
 use App\Order;
-use App\Orders_detail;
+use App\Order_detail;
 use App\Product;
 use App\Product_detail;
 use App\Role;

@@ -56,7 +56,7 @@ class AdminProductController extends Controller
                 Photo::create(['photo_url' => $name, 'product_id' => $product->id]);
             }
         }
-        $product->category()->attach($input['category_id']);
+        $product->categories()->attach($input['category_id']);
         return redirect('/admin/product');
     }
 
@@ -120,7 +120,7 @@ class AdminProductController extends Controller
         }
         $product->update($update_product);
         $product->product_detail->update($update_product_detail);
-        $product->category()->sync($request->get('category_id'));
+        $product->categories()->sync($request->get('category_id'));
         return redirect('/admin/product');
     }
 

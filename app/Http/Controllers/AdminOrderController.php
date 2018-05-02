@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Order;
-use App\Orders_detail;
+use App\Order_detail;
 use App\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -27,7 +27,7 @@ class AdminOrderController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function detail($id){
-        $orders = Orders_detail::where('orders_id', $id)->get();
+        $orders = Order_detail::where('order_id', $id)->get();
         return view('admin.orders.details', compact('orders'));
     }
     public function create()
@@ -80,7 +80,7 @@ class AdminOrderController extends Controller
     {
         $order = Order::find($id);
         $order->update($request->all());
-        foreach($order->orders_detail as $item){
+        foreach($order->order_details as $item){
             $item->update($request->all());
         }
         if($request->get('status') == "Đang giao hàng") {
@@ -104,8 +104,8 @@ class AdminOrderController extends Controller
     public function destroy($id)
     {
         $order = Order::find($id);
-        foreach($order->orders_detail as $item){
-            $product = Product::find($item->products_id);
+        foreach($order->order_details as $item){
+            $product = Product::find($item->product_id);
             $product->update(['quantity' => $product->quantity + $item->quantity]);
         }
         $order->delete();

@@ -16,7 +16,7 @@ class CategoryController extends Controller
         }
         $child_category = Category::where('parent_id', $category->id)->get();
         $real_category = Category::find($id);
-        $products = Product::wherehas('category', function ($query) use ($id, $request) {
+        $products = Product::wherehas('categories', function ($query) use ($id, $request) {
             if ($request->has('price')) {
                 $price = explode(' ', $request->get('price'));
                 $query->where('category_id', $id)->whereraw('price-sale >= ' . $price[0])->whereraw('price-sale <= ' . $price[1]);

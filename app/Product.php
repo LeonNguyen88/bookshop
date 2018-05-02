@@ -7,8 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
     protected $fillable = ['name', 'price', 'sale', 'category_id', 'description', 'quantity'];
-    public function category(){
-        return $this->belongsToMany('App\Category', 'products_category', 'products_id', 'category_id');
+    public function categories(){
+        return $this->belongsToMany('App\Category');
     }
     public function photo(){
         return $this->hasMany('App\Photo');
@@ -16,8 +16,8 @@ class Product extends Model
     public function product_detail(){
         return $this->hasOne('App\Product_detail');
     }
-    public function orders_detail(){
-        return $this->hasMany('App\Orders_detail', 'products_id');
+    public function order_details(){
+        return $this->hasMany('App\Order_detail');
     }
     /*public function getPriceAttribute($value){
         return number_format($value, 0, ',', '.');

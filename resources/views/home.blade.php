@@ -186,7 +186,7 @@
                 </div>
             </div>
             <?php
-                $products_category = App\Product::whereHas('category', function($query) use ($category){
+                $products_category = App\Product::whereHas('categories', function($query) use ($category){
                     $query->where('category_id', $category->id);
                 })->orderBy('id', 'desc')->take(4)->get();
             ?>

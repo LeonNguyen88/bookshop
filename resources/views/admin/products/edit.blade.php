@@ -10,7 +10,7 @@
         </div>
         <div class="form-group">
             {!! Form::label('category_id', 'Danh mục: ') !!}
-            {!! Form::select('category_id[]', $category, $product->category, ['multiple' => true, 'class' => 'form-control', 'required' => 'required', 'size' => 10]) !!}
+            {!! Form::select('category_id[]', $category, $product->categories, ['multiple' => true, 'class' => 'form-control', 'required' => 'required', 'size' => 10]) !!}
         </div>
         <div class="form-group">
             {!! Form::label('author', 'Tác giả: ') !!}

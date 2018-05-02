@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Category;
 use App\Http\Requests\CreateFormRequest;
 use App\Order;
-use App\Orders_detail;
+use App\Order_detail;
 use App\Product;
 use App\User;
 use Gloudemans\Shoppingcart\Facades\Cart;
@@ -33,7 +33,7 @@ class TransactionController extends Controller
         $add_orders = $request->only(['realname', 'email', 'address', 'phone']);
         //dd($add_orders);
         $orders = Order::create([
-            'users_id' => Auth::user()->id,
+            'user_id' => Auth::user()->id,
             'realname' => $add_orders['realname'],
             'email' => $add_orders['email'],
             'address' => $add_orders['address'],
@@ -42,9 +42,9 @@ class TransactionController extends Controller
             'total' => Cart::subtotal(0, ',', '')
         ]);
         foreach($cart as $item){
-            $orders_detail = Orders_detail::create([
-                'orders_id' => $orders->id,
-                'products_id' => $item->id,
+            $order_details = Order_detail::create([
+                'order_id' => $orders->id,
+                'product_id' => $item->id,
                 'quantity' => $item->qty,
                 'price' => $item->price
             ]);
