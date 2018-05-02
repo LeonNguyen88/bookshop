@@ -19,7 +19,6 @@ class CreateProductsTable extends Migration
             $table->string('slug')->nullable();
             $table->integer('price');
             $table->integer('sale');
-            $table->integer('photos_id')->unsigned()->index();
             $table->longText('description');
             $table->integer('view')->nullable();
             $table->integer('quantity');
