@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
 use Laravel\Scout\Searchable;
 
 class Product extends Model
@@ -32,6 +33,43 @@ class Product extends Model
     {
         $array = $this->toArray();
         return $array;
+    }
+    public function scopeFilter($query)
+    {
+        if (request('price')) {
+            $price = explode(' ', request('price'));
+            $query->whereraw('price-sale >= ' . $price[0])->whereraw('price-sale <= ' . $price[1]);
+        }
+        if (request('author')) {
+            $query->whereHas('product_detail', function ($query) {
+                $query->where('product_details.author', request('author'));
+            });
+        }
+        return $query;
+    }
+    public function scopeSort($query){
+        if (request('sort')) {
+            if(request('sort') == 'a-z'){
+                $query->orderBy('name', 'asc');
+            }
+            if(request('sort') == 'z-a'){
+                $query->orderBy('name', 'desc');
+            }
+            if(request('sort') == 'priceasc'){
+                $query->orderByRaw('price-sale ASC');
+            }
+            if(request('sort') == 'pricedesc'){
+                $query->orderByRaw('price-sale DESC');
+            }
+            if(request('sort') == 'new'){
+                $query->orderBy('id', 'desc');
+            }
+            if(request('sort') == 'old'){
+                $query->orderBy('id', 'asc');
+            }
+        }
+        else $query->orderBy('id', 'desc');
+        return $query;
     }
     /*public function getPriceAttribute($value){
         return number_format($value, 0, ',', '.');
