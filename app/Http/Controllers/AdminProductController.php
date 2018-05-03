@@ -133,7 +133,10 @@ class AdminProductController extends Controller
     public function destroy($id)
     {
         $product = Product::find($id);
-        $product->photo->delete();
+        foreach($product->photo as $item){
+            $item->delete();
+        }
+        //$product->photo->delete();
         $product->delete();
         return redirect('/admin/product');
     }

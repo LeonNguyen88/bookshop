@@ -55,14 +55,22 @@
             <a href="{{ route('home') }}" class="logo"></a>
         </div>
         <div class="col-md-6 search">
-            <form action="search.php" method="get">
+            {!! Form::open(['method' => 'GET', 'action' => 'SearchController@index' ]) !!}
                 <div class="input-group">
-                    <input type="text" class="form-control searchinput" placeholder="Tìm sách, danh mục, tác giả hoặc nhà xuất bản mong muốn...">
+                    {!! Form::text('keyword', null, ['class' => 'form-control searchinput', 'placeholder' => 'Tìm sách, danh mục, tác giả hoặc nhà xuất bản mong muốn...']) !!}
                     <span class="input-group-btn">
-                        <input type="submit" class="searchsubmit" />
+                        {!! Form::submit(null, ['class' => 'searchsubmit']) !!}
                     </span>
-                </div><!-- /input-group -->
-            </form>
+                </div>
+            {!! Form::close() !!}
+            {{--<form action="{{ route('search') }}" method="get">--}}
+                {{--<div class="input-group">--}}
+                    {{--<input type="text" name="keyword" class="form-control searchinput" placeholder="Tìm sách, danh mục, tác giả hoặc nhà xuất bản mong muốn...">--}}
+                    {{--<span class="input-group-btn">--}}
+                        {{--<input type="submit" class="searchsubmit" />--}}
+                    {{--</span>--}}
+                {{--</div><!-- /input-group -->--}}
+            {{--</form>--}}
         </div>
         <div class="col-md-2 col-md-offset-1">
             <div class="shopcart">

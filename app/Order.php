@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Order extends Model
 {
     protected  $fillable = [
-      'users_id', 'realname', 'phone', 'address', 'email', 'quantity', 'total', 'status'
+      'user_id', 'realname', 'phone', 'address', 'email', 'quantity', 'total', 'status'
     ];
     public function order_details(){
         return $this->hasMany('App\Order_detail');
