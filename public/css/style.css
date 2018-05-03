@@ -583,3 +583,10 @@ a:hover{
     color: #f36f36;
     font-family: 'Lobster', cursive;
 }
+/* Search page*/
+#search-content .col-md-3{
+    border: 1px solid #e7e7e7;
+    width: 23%;
+    margin: 9px;
+    padding: 5px 8px;
+}
