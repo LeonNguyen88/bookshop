@@ -23,11 +23,11 @@
                     <h1>{{ $product->name }}</h1>
                     <h3 style="color: #8c8c8c; margin-top: 10px;">{{ $product->product_detail->author }}</h3>
                     <div class="product-review-big">
-                        <span class="fa fa-star checked"></span>
-                        <span class="fa fa-star checked"></span>
-                        <span class="fa fa-star checked"></span>
-                        <span class="fa fa-star checked"></span>
-                        <span class="fa fa-star checked"></span>
+                        @if($review_qty > 0)
+                                @for($i = 1; $i <= 5; $i++)
+                                    <span class="fa fa-star {{ $i <= $product->rating_cache ? 'checked' : '' }}"></span>
+                                @endfor
+                        @endif
                     </div>
                 </div>
             <div class="col-md-2">
@@ -136,11 +136,11 @@
                                     {{ number_format($related_product->price - $related_product->sale, 0, ',', '.') }} VND
                                 </div>
                                 <div class="product-review">
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
+                                    @if($related_product->rating_cache != 0)
+                                        @for($i = 1; $i <= 5; $i++)
+                                            <span class="fa fa-star {{ $i <= $related_product->rating_cache ? 'checked' : '' }}"></span>
+                                        @endfor
+                                    @endif
                                 </div>
                             </a>
                         </div>
@@ -172,115 +172,69 @@
     <div class="tab-content">
         <div id="home" class="tab-pane fade in active">
             <div class="col-md-7">
-                <div class="user-review-box">
-                    <img class="avatar" src="{{ asset('images/Untitled-1-512.png') }}" width="45" />
-                    <div class="reply-detail">
-                        <span class="username-review">Nguyễn Ngọc Doanh</span> <span class="date-review">2018-03-15 00:14:21</span>
-                        <div class="product-review">
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
+                @if($review_qty > 0)
+                    @foreach($reviews as $review)
+                        <div class="user-review-box">
+                            <img class="avatar" src="{{ asset('images/Untitled-1-512.png') }}" width="45" />
+                            <div class="reply-detail">
+                                <span class="username-review">{{ $review->user->realname }}</span> <span class="date-review">{{ $review->created_at->format('H:i:s d/m/Y') }}</span>
+                                <div class="product-review">
+                                    @for($i = 1; $i <= 5; $i++)
+                                        <span class="fa fa-star {{ $i <= $review->rating ? 'checked' : '' }}"></span>
+                                    @endfor
+                                </div>
+                                <div class="user-review-content">
+                                    {{ $review->content }}
+                                </div>
+                            </div>
                         </div>
-                        <div class="user-review-content">
-                            Mình mua máy được khoảng 1 tuần có mấy nhận xét để các bạn tham khảo nhé Ưu điểm pin trâu .màn hình đẹp hiển thị tốt ngoài trời nắng. Chiến game tốt. Có chế độ 2 màn hình cực thích Chơi game cả ngày máy ko nóng kể cả khi đang sạc Chế độ allway on display Lọc sáng xanh ko bị mỏi mắt khi dùng lâu Còn một số nhược điểm mh chưa thực sự thích là Máy có trọng lượng khá nặng có lẽ do viên pin+thân máy kim loại Vân tay 1 chạm ko nhạy lắm. Nếu đeo găng tay thì ko thao tác dc Cổng 3.5 phát ra amply hơi nhỏ và ko trung thực Lâu dài thì chưa biết nhưng nói chung vs mh thì j7 pro 8 điểm Chúc các bạn chọn dc chiếc dế ưng ý
-                        </div>
-                    </div>
-                </div>
-                <div class="user-review-box">
-                    <img class="avatar" src="{{ asset('images/Untitled-1-512.png') }}" width="45" />
-                    <div class="reply-detail">
-                        <span class="username-review">Nguyễn Ngọc Doanh</span> <span class="date-review">2018-03-15 00:14:21</span>
-                        <div class="product-review">
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                        </div>
-                        <div class="user-review-content">
-                            Mình mua máy được khoảng 1 tuần có mấy nhận xét để các bạn tham khảo nhé Ưu điểm pin trâu .màn hình đẹp hiển thị tốt ngoài trời nắng. Chiến game tốt. Có chế độ 2 màn hình cực thích Chơi game cả ngày máy ko nóng kể cả khi đang sạc Chế độ allway on display Lọc sáng xanh ko bị mỏi mắt khi dùng lâu Còn một số nhược điểm mh chưa thực sự thích là Máy có trọng lượng khá nặng có lẽ do viên pin+thân máy kim loại Vân tay 1 chạm ko nhạy lắm. Nếu đeo găng tay thì ko thao tác dc Cổng 3.5 phát ra amply hơi nhỏ và ko trung thực Lâu dài thì chưa biết nhưng nói chung vs mh thì j7 pro 8 điểm Chúc các bạn chọn dc chiếc dế ưng ý
+                    @endforeach
+                    <div class="row">
+                        <div class="col-md-6 col-md-offset-5">
+                            {{ $reviews->render() }}
                         </div>
                     </div>
-                </div>
-                <div class="user-review-box">
-                    <img class="avatar" src="{{ asset('images/Untitled-1-512.png') }}" width="45" />
-                    <div class="reply-detail">
-                        <span class="username-review">Nguyễn Ngọc Doanh</span> <span class="date-review">2018-03-15 00:14:21</span>
-                        <div class="product-review">
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                        </div>
-                        <div class="user-review-content">
-                            Mình mua máy được khoảng 1 tuần có mấy nhận xét để các bạn tham khảo nhé Ưu điểm pin trâu .màn hình đẹp hiển thị tốt ngoài trời nắng. Chiến game tốt. Có chế độ 2 màn hình cực thích Chơi game cả ngày máy ko nóng kể cả khi đang sạc Chế độ allway on display Lọc sáng xanh ko bị mỏi mắt khi dùng lâu Còn một số nhược điểm mh chưa thực sự thích là Máy có trọng lượng khá nặng có lẽ do viên pin+thân máy kim loại Vân tay 1 chạm ko nhạy lắm. Nếu đeo găng tay thì ko thao tác dc Cổng 3.5 phát ra amply hơi nhỏ và ko trung thực Lâu dài thì chưa biết nhưng nói chung vs mh thì j7 pro 8 điểm Chúc các bạn chọn dc chiếc dế ưng ý
-                        </div>
-                    </div>
-                </div>
+                @else
+                    <h4>Chưa có đánh giá nào ! Hãy là người đầu tiên đánh giá sản phẩm này.</h4>
+                @endif
             </div>
             <div class="col-md-5 review-col-left">
-                <h3>Điểm đánh giá trung bình của sản phẩm</h3>
-                <div class="product-review">
-                    <span class="fa fa-star checked"></span>
-                    <span class="fa fa-star checked"></span>
-                    <span class="fa fa-star checked"></span>
-                    <span class="fa fa-star checked"></span>
-                    <span class="fa fa-star checked"></span>
-                </div>
-                <div class="rating-box">
-                    <div class="row-rate">
-                        <span class="rating-num">5 sao</span>
-                        <div class="progress">
-                            <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
-                                <span class="sr-only">60% Complete</span>
+                @if($review_qty > 0)
+                    <h3>Điểm đánh giá trung bình của sản phẩm</h3>
+                    <span class="product-review">
+                            @for($i = 1; $i <= 5; $i++)
+                                <span class="fa fa-star {{ $i <= $product->rating_cache ? 'checked' : '' }}"></span>
+                            @endfor
+                    </span><span style="font-size: 27px; color: #8c8c8c">({{ $review_qty }} nhận xét)</span>
+                    <div class="rating-box">
+                        @for($i = 5; $i >= 1; $i--)
+                            <div class="row-rate">
+                                <span class="rating-num">{{ $i }} sao</span>
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
+                                        <span class="sr-only">60% Complete</span>
+                                    </div>
+                                </div>
+                                <span>({{ 4 }})</span>
                             </div>
-                        </div>
-                        <span>(4)</span>
+                        @endfor
                     </div>
-                    <div class="row-rate">
-                        <span class="rating-num">4 sao</span>
-                        <div class="progress">
-                            <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
-                                <span class="sr-only">60% Complete</span>
-                            </div>
-                        </div>
-                        <span>(4)</span>
-                    </div>
-                    <div class="row-rate">
-                        <span class="rating-num">3 sao</span>
-                        <div class="progress">
-                            <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
-                                <span class="sr-only">60% Complete</span>
-                            </div>
-                        </div>
-                        <span>(4)</span>
-                    </div>
-                    <div class="row-rate">
-                        <span class="rating-num">2 sao</span>
-                        <div class="progress">
-                            <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
-                                <span class="sr-only">60% Complete</span>
-                            </div>
-                        </div>
-                        <span>(4)</span>
-                    </div>
-                    <div class="row-rate">
-                        <span class="rating-num">1 sao</span>
-                        <div class="progress">
-                            <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
-                                <span class="sr-only">60% Complete</span>
-                            </div>
-                        </div>
-                        <span>(4)</span>
-                    </div>
-                </div>
-                {!! Form::open(['method' => 'POST', 'action' => ['ProductController@index', $product->id]]) !!}
+                @endif
+                {!! Form::open(['method' => 'POST', 'action' => ['ReviewController@store', $product->id]]) !!}
                     <div class="form-group">
-                        {!! Form::textarea('review', null, ['class' => 'form-control', 'rows' => '10', 'placeholder' => 'Nhập nhận xét về sản phẩm này của bạn']) !!}
+                        {!! Form::textarea('content', null, ['class' => 'form-control', 'rows' => '10', 'placeholder' => 'Nhập nhận xét về sản phẩm này của bạn', 'required']) !!}
                     </div>
+                    <div class="form-group">
+                        {!! Form::label(null, 'Đánh giá của bạn:', ['class' => 'yourreviewstar']) !!}
+                        <fieldset class="rating">
+                            <input type="radio" id="star5" name="rating" value="5" required /><label class = "full" for="star5" title="5 sao"></label>
+                            <input type="radio" id="star4" name="rating" value="4" /><label class = "full" for="star4" title="4 sao"></label>
+                            <input type="radio" id="star3" name="rating" value="3" /><label class = "full" for="star3" title="3 sao"></label>
+                            <input type="radio" id="star2" name="rating" value="2" /><label class = "full" for="star2" title="2 sao"></label>
+                            <input type="radio" id="star1" name="rating" value="1" /><label class = "full" for="star1" title="1 sao"></label>
+                        </fieldset>
+                    </div>
+                    <div style="clear: left"></div>
                     <div class="form-group">
                         {!! Form::submit('GỬI', ['class' => 'btn btn-warning', 'name' => 'review-submit']) !!}
                     </div>

@@ -12,7 +12,7 @@ class Product extends Model
     protected $searchable = [
         'name'
     ];
-    protected $fillable = ['name', 'price', 'sale', 'category_id', 'description', 'quantity'];
+    protected $fillable = ['name', 'price', 'sale', 'category_id', 'description', 'quantity', 'rating_cache', 'rating_count'];
     public function categories(){
         return $this->belongsToMany('App\Category');
     }
@@ -24,6 +24,9 @@ class Product extends Model
     }
     public function order_details(){
         return $this->hasMany('App\Order_detail');
+    }
+    public function reviews(){
+        return $this->hasMany('App\Review');
     }
     public function searchableAs()
     {
@@ -71,10 +74,8 @@ class Product extends Model
         else $query->orderBy('id', 'desc');
         return $query;
     }
-    /*public function getPriceAttribute($value){
-        return number_format($value, 0, ',', '.');
+    public function scopeRating($query){
+        $query->selectRaw('round(avg(rating), 0)')->where('id', 'reviews.product_id');
     }
-    public function getSaleAttribute($value){
-        return number_format($value, 0, ',', '.');
-    }*/
+
 }
