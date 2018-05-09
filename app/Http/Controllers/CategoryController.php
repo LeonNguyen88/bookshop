@@ -16,7 +16,7 @@ class CategoryController extends Controller
         }
         $child_category = Category::where('parent_id', $category->id)->get();
         $real_category = Category::find($id);
-        $products = Product::filter()->wherehas('categories', function ($query) use ($id, $request) {
+        $products = Product::filter()->whereHas('categories', function ($query) use ($id, $request) {
             $query->where('category_id', $id);
         })->sort()->paginate(20);
         return view('category', compact('products', 'category', 'child_category', 'real_category'));

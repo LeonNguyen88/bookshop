@@ -1,5 +1,7 @@
 @extends('layouts.front-end3')
 @section('js')
+    <script defer src="{{ asset('js/jquery.flexslider.js') }}"></script>
+    <script src="{{ asset('js/slider.js') }}"></script>
     <script src="{{ asset('js/myscript.js') }}"></script>
     <script type="text/javascript">
         function addParam(v) {
@@ -24,26 +26,6 @@
                 </ul>
             </div>
         </section>
-        <!-- jQuery -->
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-        <script>window.jQuery || document.write('<script src="js/libs/jquery-1.7.min.js">\x3C/script>')</script>
-
-        <!-- FlexSlider -->
-        <script defer src="{{ asset('js/jquery.flexslider.js') }}"></script>
-
-        <script type="text/javascript">
-            $(function(){
-                SyntaxHighlighter.all();
-            });
-            $(window).load(function(){
-                $('.flexslider').flexslider({
-                    animation: "slide",
-                    start: function(slider){
-                        $('body').removeClass('loading');
-                    }
-                });
-            });
-        </script>
     </div>
     <div class="container">
         <div class="col-md-3 category-sidebar">
@@ -70,12 +52,12 @@
                 </div>
                 <div class="category-list-body">
                     <ul class="search-price">
-                        <li><a href="#" onclick="addParam('price=0 50000')">Dưới 50.000 đ</a></li>
-                        <li><a href="#" onclick="addParam('price=50000 100000')">Từ 50.000 đ đến 100.000 đ</a></li>
-                        <li><a href="#" onclick="addParam('price=100000 200000')">Từ 100.000 đ đến 200.000 đ</a></li>
-                        <li><a href="#" onclick="addParam('price=200000 400000')">Từ 200.000 đ đến 400.000 đ</a></li>
-                        <li><a href="#" onclick="addParam('price=400000 500000')">Từ 400.000 đ đến 500.000 đ</a></li>
-                        <li><a href="#" onclick="addParam('price=500000 1000000')">Trên 500.000 đ</a></li>
+                        <li><a href="javascript:addParam('price=0 50000')">Dưới 50.000 đ</a></li>
+                        <li><a href="javascript:addParam('price=50000 100000')">Từ 50.000 đ đến 100.000 đ</a></li>
+                        <li><a href="javascript:addParam('price=100000 200000')">Từ 100.000 đ đến 200.000 đ</a></li>
+                        <li><a href="javascript:addParam('price=200000 400000')">Từ 200.000 đ đến 400.000 đ</a></li>
+                        <li><a href="javascript:addParam('price=400000 500000')">Từ 400.000 đ đến 500.000 đ</a></li>
+                        <li><a href="javascript:addParam('price=500000 1000000')">Trên 500.000 đ</a></li>
                     </ul>
                 </div>
             </div>
@@ -89,7 +71,7 @@
                 <div class="category-list-body">
                     <ul class="search-price">
                         @foreach($products as $product)
-                            <li><a href="#" onclick="addParam('author={{ $product->product_detail->author }}')">{{ $product->product_detail->author }}</a></li>
+                            <li><a href="javascript:addParam('author={{ $product->product_detail->author }}')">{{ $product->product_detail->author }}</a></li>
                         @endforeach
                     </ul>
                 </div>
@@ -103,12 +85,12 @@
                         Sắp xếp <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu">
-                        <li><a href="#" onclick="addParam('sort=a-z')">Từ A-Z</a></li>
-                        <li><a href="#" onclick="addParam('sort=z-a')">Từ Z-A</a></li>
-                        <li><a href="#" onclick="addParam('sort=priceasc')">Giá tăng dần</a></li>
-                        <li><a href="#" onclick="addParam('sort=pricedesc')">Giá giảm dần</a></li>
-                        <li><a href="#" onclick="addParam('sort=new')">Từ A-Z</a></li>
-                        <li><a href="#" onclick="addParam('sort=old')">Từ Z-A</a></li>
+                        <li><a href="javascript:addParam('sort=a-z')">Từ A-Z</a></li>
+                        <li><a href="javascript:addParam('sort=z-a')">Từ Z-A</a></li>
+                        <li><a href="javascript:addParam('sort=priceasc')">Giá tăng dần</a></li>
+                        <li><a href="javascript:addParam('sort=pricedesc')">Giá giảm dần</a></li>
+                        <li><a href="javascript:addParam('sort=new')">Mới nhất</a></li>
+                        <li><a href="javascript:addParam('sort=old')">Cũ nhất</a></li>
                     </ul>
                 </div>
             </div>
@@ -132,11 +114,11 @@
                             {{ format_money($product->price - $product->sale) }} VND
                         </div>
                         <div class="product-review">
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
+                            @if($product->rating_cache != 0)
+                                @for($i = 1; $i <= 5; $i++)
+                                    <span class="fa fa-star {{ $i <= $product->rating_cache ? 'checked' : '' }}"></span>
+                                @endfor
+                            @endif
                         </div>
                         <a href="{{ route('addtocart', $product->id) }}" class="btn btn-primary addtocart-btn add-to-cart-js" data-id="{{ $product->id }}">
                             <span class="fa fas fa-cart-plus"></span>
