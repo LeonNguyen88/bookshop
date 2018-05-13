@@ -211,11 +211,19 @@
                             <div class="row-rate">
                                 <span class="rating-num">{{ $i }} sao</span>
                                 <div class="progress">
+<<<<<<< HEAD
                                     <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="{{ count($product->reviews->where('rating', $i))/$review_qty*100 }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ count($product->reviews->where('rating', $i))/$review_qty*100 }}%;">
                                         <span class="sr-only">{{ count($product->reviews->where('rating', $i))/$review_qty*100 }}% Complete</span>
                                     </div>
                                 </div>
                                 <span>({{ count($product->reviews->where('rating', $i)) }})</span>
+=======
+                                    <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
+                                        <span class="sr-only">60% Complete</span>
+                                    </div>
+                                </div>
+                                <span>({{ 4 }})</span>
+>>>>>>> 3776a48ce43e3823f279f279c124922e138d035e
                             </div>
                         @endfor
                     </div>

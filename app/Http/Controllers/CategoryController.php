@@ -16,12 +16,9 @@ class CategoryController extends Controller
         }
         $child_category = Category::where('parent_id', $category->id)->get();
         $real_category = Category::find($id);
-        $products = Product::wherehas('categories', function ($query) use ($id, $request) {
-            if ($request->has('price')) {
-                $price = explode(' ', $request->get('price'));
-                $query->where('category_id', $id)->whereraw('price-sale >= ' . $price[0])->whereraw('price-sale <= ' . $price[1]);
-            } else $query->where('category_id', $id);
-        })->get();
+        $products = Product::filter()->whereHas('categories', function ($query) use ($id, $request) {
+            $query->where('category_id', $id);
+        })->sort()->paginate(20);
         return view('category', compact('products', 'category', 'child_category', 'real_category'));
     }
 }
