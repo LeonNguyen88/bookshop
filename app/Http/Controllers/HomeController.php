@@ -28,19 +28,17 @@ class HomeController extends Controller
     public function index(Request $request)
     {
         $user = Auth::user();
+        $list_categories = Category::all();
         $categories = Category::where('parent_id', 0)->get();
         $latest_products = Product::orderBy('id', 'desc')->take(15)->get();
-        //$sub_categories = Category::where('id', $categories->parent_id)->get();
-        $cate = Category::find(1);
 //        $products_category = Product::whereHas('categories', function($query) use ($categories){
 //            $query->where('category_id', $this->$category->id);
 //        })->get();
-        //$hot_products = Order_detail::orderByRaw('sum(quantity) DESC')->groupBy('products_id')->take(8)->get();
         $hot_products = Product::wherehas('Order_details', function($query){
             $query->orderByRaw('sum(order_details.quantity) DESC')->groupBy('order_details.product_id');
         })->take(8)->get();
         $sale_products = Product::orderBy('sale', 'desc')->take(8)->get();
-        return view('home', compact('user', 'categories', 'latest_products', 'sale_products', 'hot_products'));
+        return view('home', compact('user', 'categories', 'latest_products', 'sale_products', 'hot_products','list_categories'));
     }
 
 }

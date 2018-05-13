@@ -159,10 +159,7 @@
                 </div>
                 <div class="subcategory-title">
                     <ul>
-                        <?php
-                        $sub_categories = App\Category::where('parent_id', $category->id)->orderBy('id', 'desc')->get();
-                        ?>
-                        @foreach($sub_categories as $sub_category)
+                        @foreach($list_categories->where('parent_id', $category->id)->sortByDesc('id') as $sub_category)
                             <li><a href="{{ route('category', $sub_category->id) }}">{{ $sub_category->name }}</a></li>
                         @endforeach
                     </ul>

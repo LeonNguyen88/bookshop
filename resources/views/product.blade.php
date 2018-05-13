@@ -216,11 +216,6 @@
                                     </div>
                                 </div>
                                 <span>({{ count($product->reviews->where('rating', $i)) }})</span>
-                                    <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
-                                        <span class="sr-only">60% Complete</span>
-                                    </div>
-                                </div>
-                                <span>({{ 4 }})</span>
                             </div>
                         @endfor
                     </div>
