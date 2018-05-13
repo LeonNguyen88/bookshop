@@ -18,6 +18,7 @@
     <link href="{{ asset('css/flexslider.css') }}" rel="stylesheet" />
     <link href="{{ asset('css/swiper.min.css') }}" rel="stylesheet" />
     <link href="{{ asset('css/style.css') }}" rel="stylesheet" />
+    <script src="//code.tidio.co/dqvb1pwlncoi0ko1ujek5snkwywy4cbg.js"></script>
 </head>
 <body>
 <div class="row primary-nav">
