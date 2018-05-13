@@ -76,7 +76,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'isAdmin'], function(){
         'destroy' => 'admin.order.destroy'
     ]]);
     Route::get('/order/detail/{id}', 'AdminOrderController@detail')->name('admin.order.detail');
-    //Route::get('/order/detail/edit/{id}', 'AdminOrderController@editstatus')->name('admin.order.detail');
+    Route::get('/slider', 'AdminSliderController@index')->name('admin.slider');
 });
 Route::get('/aa', function(Request $request){
     dd(Auth::user()->id);
