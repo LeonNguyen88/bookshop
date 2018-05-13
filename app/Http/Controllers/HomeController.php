@@ -32,9 +32,9 @@ class HomeController extends Controller
         $latest_products = Product::orderBy('id', 'desc')->take(15)->get();
         //$sub_categories = Category::where('id', $categories->parent_id)->get();
         $cate = Category::find(1);
-        $products_category = Product::wherehas('categories', function($query) use ($categories){
-            $query->where('category_id', $categories);
-        })->get();
+//        $products_category = Product::whereHas('categories', function($query) use ($categories){
+//            $query->where('category_id', $this->$category->id);
+//        })->get();
         //$hot_products = Order_detail::orderByRaw('sum(quantity) DESC')->groupBy('products_id')->take(8)->get();
         $hot_products = Product::wherehas('Order_details', function($query){
             $query->orderByRaw('sum(order_details.quantity) DESC')->groupBy('order_details.product_id');

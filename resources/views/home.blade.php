@@ -1,5 +1,8 @@
 @extends('layouts.front-end1')
-
+@section('js')
+    <script src="{{ asset('js/slider.js') }}"></script>
+    <script defer src="{{ asset('js/jquery.flexslider.js') }}"></script>
+@stop
 @section('slider')
     <div class="col-md-8">
         <section class="slider">
@@ -20,26 +23,6 @@
                 </ul>
             </div>
         </section>
-        <!-- jQuery -->
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-        <script>window.jQuery || document.write('<script src="js/libs/jquery-1.7.min.js">\x3C/script>')</script>
-
-        <!-- FlexSlider -->
-        <script defer src="{{ asset('js/jquery.flexslider.js') }}"></script>
-
-        <script type="text/javascript">
-            $(function(){
-                SyntaxHighlighter.all();
-            });
-            $(window).load(function(){
-                $('.flexslider').flexslider({
-                    animation: "slide",
-                    start: function(slider){
-                        $('body').removeClass('loading');
-                    }
-                });
-            });
-        </script>
     </div>
     <div class="col-md-4 ads-right">
         <img src="{{ asset('images/a6b4993e219842f5d613129f00888754.jpg') }}" width="383" />
@@ -80,11 +63,11 @@
                                         {{ format_money($hot_product->price - $hot_product->sale) }} VND
                                     </div>
                                     <div class="product-review">
-                                        <span class="fa fa-star checked"></span>
-                                        <span class="fa fa-star checked"></span>
-                                        <span class="fa fa-star checked"></span>
-                                        <span class="fa fa-star checked"></span>
-                                        <span class="fa fa-star checked"></span>
+                                        @if($hot_product->rating_cache != 0)
+                                            @for($i = 1; $i <= 5; $i++)
+                                                <span class="fa fa-star {{ $i <= $hot_product->rating_cache ? 'checked' : '' }}"></span>
+                                            @endfor
+                                        @endif
                                     </div>
                                 </a>
                             </div>
@@ -139,11 +122,11 @@
                                         {{ format_money($latest_product->price - $latest_product->sale) }} VND
                                     </div>
                                     <div class="product-review">
-                                        <span class="fa fa-star checked"></span>
-                                        <span class="fa fa-star checked"></span>
-                                        <span class="fa fa-star checked"></span>
-                                        <span class="fa fa-star checked"></span>
-                                        <span class="fa fa-star checked"></span>
+                                        @if($latest_product->rating_cache != 0)
+                                            @for($i = 1; $i <= 5; $i++)
+                                                <span class="fa fa-star {{ $i <= $latest_product->rating_cache ? 'checked' : '' }}"></span>
+                                            @endfor
+                                        @endif
                                     </div>
                                 </a>
                             </div>
@@ -185,13 +168,8 @@
                     </ul>
                 </div>
             </div>
-            <?php
-                $products_category = App\Product::whereHas('categories', function($query) use ($category){
-                    $query->where('category_id', $category->id);
-                })->orderBy('id', 'desc')->take(4)->get();
-            ?>
             <div class="product-box">
-                @foreach($products_category as $product_category)
+                @foreach($category->products->sortByDesc('id')->take(4) as $product_category)
                     <div class="col-md-3">
                         <a href="{{ route('product', $product_category->id) }}" title="{{ $product_category->name }}">
                             <div class="product-image">
@@ -211,11 +189,11 @@
                                 {{ format_money($product_category->price - $product_category->sale) }} VND
                             </div>
                             <div class="product-review">
-                                <span class="fa fa-star"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
+                                @if($product_category->rating_cache != 0)
+                                    @for($i = 1; $i <= 5; $i++)
+                                        <span class="fa fa-star {{ $i <= $product_category->rating_cache ? 'checked' : '' }}"></span>
+                                    @endfor
+                                @endif
                             </div>
                         </a>
                     </div>
