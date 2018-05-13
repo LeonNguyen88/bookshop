@@ -8,4 +8,3 @@
     @include('layouts.sidebar')
 </div>
 @include('layouts.footer')
-

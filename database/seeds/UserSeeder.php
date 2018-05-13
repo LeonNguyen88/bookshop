@@ -19,7 +19,7 @@ class UserSeeder extends Seeder
             'remember_token' => str_random(10),
             'realname' => 'Nguyễn Anh Tuấn',
             'address' => '343/22 Nguyễn Trọng Tuyển, phường 1, quận Tân Bình, TPHCM',
-            'role_id' => 1,
+            'level' => 1,
             'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
             'updated_at' => Carbon::now()->format('Y-m-d H:i:s')]);
 

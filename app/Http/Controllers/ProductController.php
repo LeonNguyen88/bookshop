@@ -6,9 +6,7 @@ use App\Category;
 use App\Photo;
 use App\Product;
 use App\Product_detail;
-use App\Review;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
@@ -20,9 +18,6 @@ class ProductController extends Controller
         $related_products = Product::whereHas('categories', function($query) use($product, $category_of_product) {
             $query->whereIn('categories.id', $category_of_product)->where('products.id', '<>', $product->id);
         })->get();
-        $reviews = Review::where('product_id', $id)->paginate(4);
-        $review_qty = count($product->reviews);
-        $a = $product->reviews->count();
-        return view('product', compact( 'categories', 'product', 'related_products', 'thumbnails', 'reviews', 'review_qty', 'avg_rating'));
+        return view('product', compact( 'categories', 'product', 'related_products', 'thumbnails'));
     }
 }

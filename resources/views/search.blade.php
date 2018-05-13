@@ -2,8 +2,7 @@
 
 @section('content')
     <h2 class="page-header">Tìm thấy {{ $count }} kết quả tìm kiếm phù hợp với từ khóa '{{ $keyword }}'</h2>
-    <div id="search-content">
-        @foreach($products as $product)
+    @foreach($products as $product)
         <div class="col-md-3">
             <a href="{{ route('product', $product->id) }}" title="{{ $product->name }}">
                 <div class="product-image">
@@ -36,10 +35,4 @@
             </a>
         </div>
     @endforeach
-    </div>
-    <div class="row">
-        <div class="col-md-6 col-md-offset-5">
-            {{ $products->render() }}
-        </div>
-    </div>
 @stop

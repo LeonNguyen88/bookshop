@@ -231,10 +231,7 @@ a:hover{
     text-align: center;
 }
 .fa-star{
-    color: #8c8c8c;
-}
-.fa-star.checked{
-    color: #ffd92d !important;
+    color: #ffd92d;
 }
 .thumbnail-item-bar{
     margin-top: 10px;
@@ -526,7 +523,7 @@ a:hover{
 .category-list-header span{
     color: black;
     font-weight: 700;
-    font-size: 16px;
+    font-size: 17px;
 }
 .category-list-body{
     padding: 12px 16px;
@@ -579,9 +576,6 @@ a:hover{
     margin: 9px;
     padding: 5px 8px;
 }
-.category-content .product-review{
-    height: 20px;
-}
 .category-header{
     float: left;
     line-height: 50px;
@@ -589,43 +583,3 @@ a:hover{
     color: #f36f36;
     font-family: 'Lobster', cursive;
 }
-/* Search page*/
-#search-content .col-md-3{
-    border: 1px solid #e7e7e7;
-    width: 23%;
-    margin: 9px;
-    padding: 5px 8px;
-}
-/* Rating */
-.yourreviewstar{
-    font-size: 1.25em;
-    float: left;
-    margin: 5px;
-}
-.rating {
-    border: none;
-    float: left;
-}
-.rating > input { display: none; }
-.rating > label:before {
-    margin: 5px;
-    font-size: 1.25em;
-    font-family: "FontAwesome";
-    content: "\f005";
-    display: inline-block;
-}
-.rating > .half:before {
-    content: "\f089";
-    position: absolute;
-}
-.rating > label {
-    color: #ddd;
-    float: right;
-}
-.rating > input:checked ~ label, /* show gold star when clicked */
-.rating:not(:checked) > label:hover, /* hover current star */
-.rating:not(:checked) > label:hover ~ label { color: #FFD700;  } /* hover previous stars in list */
-.rating > input:checked + label:hover, /* hover current star when changing rating */
-.rating > input:checked ~ label:hover,
-.rating > label:hover ~ input:checked ~ label, /* lighten current selection */
-.rating > input:checked ~ label:hover ~ label { color: #FFED85;  }
