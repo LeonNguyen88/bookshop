@@ -18,9 +18,6 @@
     <link href="{{ asset('css/flexslider.css') }}" rel="stylesheet" />
     <link href="{{ asset('css/swiper.min.css') }}" rel="stylesheet" />
     <link href="{{ asset('css/style.css') }}" rel="stylesheet" />
-    <!-- js --->
-    <script src="{{ asset('js/jquery-3.3.1.min.js') }}"></script>
-    @yield('js')
 </head>
 <body>
 <div class="row primary-nav">

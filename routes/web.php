@@ -79,8 +79,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'isAdmin'], function(){
     //Route::get('/order/detail/edit/{id}', 'AdminOrderController@editstatus')->name('admin.order.detail');
 });
 Route::get('/aa', function(Request $request){
-    $order = Order::find(14)->order_details;
-    echo $order;
+    dd(Auth::user()->id);
 });
 Route::get('/product/{id}', 'ProductController@index')->name('product');
 Route::post('/cart/{id}', 'CartController@add')->name('addtocart');
@@ -99,4 +98,5 @@ Route::get('/order/history/{id}', 'UserController@orderdetail')->name('orderdeta
 Route::delete('/order/history/{id}', 'UserController@removeorder')->name('removeorder');
 Route::get('/category/{id}', 'CategoryController@index')->name('category');
 Route::get('/search', 'SearchController@index')->name('search');
+Route::post('/product/{id}', 'ReviewController@store')->name('storeproduct');
 

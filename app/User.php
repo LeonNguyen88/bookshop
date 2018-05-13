@@ -29,6 +29,9 @@ class User extends Authenticatable
     public function role(){
         return $this->belongsTo('App\Role');
     }
+    public function reviews(){
+        return $this->hasMany('App\Review');
+    }
     public function isAdmin(){
         if($this->role->name == "admin"){
             return true;
