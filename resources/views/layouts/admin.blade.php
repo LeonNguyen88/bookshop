@@ -166,15 +166,15 @@
                         </ul>
                         <!-- /.nav-second-level -->
                     </li>
-                    <li>
-                        <a href="#"><i class="fa fab fa-slideshare"></i>Slider<span class="fa arrow"></span></a>
-                        <ul class="nav nav-second-level">
-                            <li>
-                                <a href="{{ route('admin.slider') }}">Danh sách Slider</a>
-                            </li>
-                        </ul>
-                        <!-- /.nav-second-level -->
-                    </li>
+                    {{--<li>--}}
+                        {{--<a href="#"><i class="fa fab fa-slideshare"></i>Slider<span class="fa arrow"></span></a>--}}
+                        {{--<ul class="nav nav-second-level">--}}
+                            {{--<li>--}}
+                                {{--<a href="{{ route('admin.slider') }}">Danh sách Slider</a>--}}
+                            {{--</li>--}}
+                        {{--</ul>--}}
+                        {{--<!-- /.nav-second-level -->--}}
+                    {{--</li>--}}
                 </ul>
 
 

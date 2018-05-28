@@ -77,6 +77,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'isAdmin'], function(){
     ]]);
     Route::get('/order/detail/{id}', 'AdminOrderController@detail')->name('admin.order.detail');
     Route::get('/slider', 'AdminSliderController@index')->name('admin.slider');
+    Route::get('/slider/create/{id}', 'AdminSliderController@create')->name('admin.slider.create');
+    Route::post('/slider', 'AdminSliderController@store')->name('admin.slider.store');
 });
 Route::get('/aa', function(Request $request){
     dd(Auth::user()->id);

@@ -92,5 +92,10 @@ $(document).ready(function(){
         });
         return false;
     }) ;
-
+    $('.add-slider-btn').click(function () {
+        var html = '<div class="slider-item">'+ $('.slider-item').html() + '</div>';
+        //console.log(html);
+        $('#slider-container').append(html);
+            return false;
+    });
 });
