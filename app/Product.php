@@ -8,10 +8,10 @@ use Laravel\Scout\Searchable;
 
 class Product extends Model
 {
-    use Searchable;
-    protected $searchable = [
-        'name'
-    ];
+//    use Searchable;
+//    protected $searchable = [
+//        'name'
+//    ];
     protected $fillable = ['name', 'price', 'sale', 'category_id', 'description', 'quantity', 'rating_cache', 'rating_count'];
     public function categories(){
         return $this->belongsToMany('App\Category');
