@@ -50,15 +50,25 @@ class ProductController extends Controller
         $books = $this->transform_prefs($new);
         //var_dump($this->top_matches($books, $product->name, 8));
         //var_dump(array_values($recommendations));
-        if(Auth::check()) {
+        $recommendations = [];
+        if(Auth::check())
             $recommendations = $this->get_recommendations($new, Auth::user()->name);
+        if(count($recommendations) != 0) {
             $related_products = Product::whereIn('name', array_keys($recommendations))->where('id', '<>', $product->id)->get();
+//            foreach($recommendations as $key => $values){
+//                $values = 'zz';
+//                $related_products->map(function ($related_product, $values) {
+//                    $related_product['recommend_value'] = $values;
+//                    return $related_product;
+//                });
+//            }
         }
         else{
             $related_products = Product::whereHas('categories', function($query) use($product, $category_of_product) {
                 $query->whereIn('categories.id', $category_of_product)->where('products.id', '<>', $product->id);
             })->get();
         }
+        dd($related_products);
         return view('product', compact( 'categories', 'product', 'related_products', 'thumbnails', 'reviews', 'review_qty', 'avg_rating'));
     }
     private function sim_pearson($prefs,$person1,$person2) {
