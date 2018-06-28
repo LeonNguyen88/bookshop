@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use App\Comment;
 use App\Photo;
 use App\Product;
 use App\Product_detail;
@@ -18,11 +19,10 @@ class ProductController extends Controller
         $product = Product::findOrFail($id);
         $thumbnails = Photo::where('product_id', $id)->where('is_cover', 0)->orderBy('id', 'desc')->take(4)->get();
         $category_of_product = $product->categories->pluck('id');
-//        $related_products = Product::whereHas('categories', function($query) use($product, $category_of_product) {
-//            $query->whereIn('categories.id', $category_of_product)->where('products.id', '<>', $product->id);
-//        })->get();
         $reviews = Review::where('product_id', $id)->paginate(4);
         $review_qty = count($product->reviews);
+        $cmt_qty = count($product->comments);
+        $cmt = Comment::where('product_id', $id)->paginate(4);
         $query = DB::table('reviews')->select('reviews.rating', 'users.name', 'products.name AS product_name')
             ->leftJoin('users', 'users.id', '=', 'reviews.user_id')
             ->leftJoin('products', 'products.id', '=', 'reviews.product_id')
@@ -55,21 +55,13 @@ class ProductController extends Controller
             $recommendations = $this->get_recommendations($new, Auth::user()->name);
         if(count($recommendations) != 0) {
             $related_products = Product::whereIn('name', array_keys($recommendations))->where('id', '<>', $product->id)->get();
-//            foreach($recommendations as $key => $values){
-//                $values = 'zz';
-//                $related_products->map(function ($related_product, $values) {
-//                    $related_product['recommend_value'] = $values;
-//                    return $related_product;
-//                });
-//            }
         }
         else{
             $related_products = Product::whereHas('categories', function($query) use($product, $category_of_product) {
                 $query->whereIn('categories.id', $category_of_product)->where('products.id', '<>', $product->id);
             })->get();
         }
-        dd($related_products);
-        return view('product', compact( 'categories', 'product', 'related_products', 'thumbnails', 'reviews', 'review_qty', 'avg_rating'));
+        return view('product', compact( 'categories', 'product', 'related_products', 'thumbnails', 'reviews', 'review_qty', 'avg_rating', 'cmt_qty', 'cmt'));
     }
     private function sim_pearson($prefs,$person1,$person2) {
         //Get the list of shared movies between 2 persons

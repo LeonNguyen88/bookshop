@@ -28,6 +28,9 @@ class Product extends Model
     public function reviews(){
         return $this->hasMany('App\Review');
     }
+    public function comments(){
+        return $this->hasMany('App\Comment');
+    }
     public function searchableAs()
     {
         return 'products_name_index';

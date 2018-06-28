@@ -32,6 +32,9 @@ class User extends Authenticatable
     public function reviews(){
         return $this->hasMany('App\Review');
     }
+    public function comments(){
+        return $this->hasMany('App\Comment');
+    }
     public function isAdmin(){
         if($this->role->name == "admin"){
             return true;

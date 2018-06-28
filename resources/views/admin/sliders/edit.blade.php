@@ -3,7 +3,7 @@
 @section('content')
     <h1 class="page-header">{{ $name }}</h1>
     <div class="col-md-10">
-        {!! Form::open(['method' => 'POST', 'action' => 'AdminSliderController@store', 'files' => true ]) !!}
+        {!! Form::model($slider, ['method' => 'PATCH', 'action' => 'AdminSliderController@store', 'files' => true ]) !!}
         <div id="slider-container">
             <div class="slider-item">
                 <div class="form-group">
@@ -32,11 +32,11 @@
 @stop
 @section('custom-css')
     <style type="text/css">
-            .slider-item{
-                border: 1px solid #8c8c8c;
-                padding: 20px;
-                margin-bottom: 20px;
-            }
+        .slider-item{
+            border: 1px solid #8c8c8c;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
         .divider{
             border: 1px solid #eee;
             margin-bottom: 30px;

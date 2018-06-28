@@ -42,9 +42,7 @@ Route::get('/test', function(){
     return view('layouts.front-end1');
 });
 Route::group(['prefix' => 'admin', 'middleware' => 'isAdmin'], function(){
-    Route::get('/', function(){
-        return view('admin.index');
-    })->name('admin');
+    Route::get('/', 'AdminDashboardController@index')->name('admin');
     Route::resource('/user', 'AdminUserController', ['names' => [
         'index' => 'admin.users.index',
         'create' => 'admin.users.create',
@@ -79,6 +77,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'isAdmin'], function(){
     Route::get('/slider', 'AdminSliderController@index')->name('admin.slider');
     Route::get('/slider/create/{id}', 'AdminSliderController@create')->name('admin.slider.create');
     Route::post('/slider', 'AdminSliderController@store')->name('admin.slider.store');
+    Route::get('/slider/edit/{id}', 'AdminSliderController@edit')->name('admin.slider.edit');
+    Route::get('/comment', 'AdminCommentController@index')->name('admin.comment.index');
+    Route::delete('/commment/{id}', 'AdminCommentController@destroy')->name('admin.comment.delete');
 });
 Route::get('/aa', function(Request $request){
     dd(Auth::user()->id);
@@ -100,5 +101,6 @@ Route::get('/order/history/{id}', 'UserController@orderdetail')->name('orderdeta
 Route::delete('/order/history/{id}', 'UserController@removeorder')->name('removeorder');
 Route::get('/category/{id}', 'CategoryController@index')->name('category');
 Route::get('/search', 'SearchController@index')->name('search');
-Route::post('/product/{id}', 'ReviewController@store')->name('storeproduct');
+Route::post('/product/review/{id}', 'ReviewController@store')->name('storereview');
+Route::post('/product/comment/{id}', 'CommentController@store')->name('storecomment');
 

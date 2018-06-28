@@ -13,8 +13,10 @@
             <tr>
                 <td><h4>Trang chủ</h4></td>
                 <td>
-                    <a href="{{ route('admin.slider.create', 0) }}" class="btn btn-primary">Tạo mới</a>
-                    <a href="" class="btn btn-success">Sửa</a>
+                    @if(!in_array(0, $already))
+                        <a href="{{ route('admin.slider.create', 0) }}" class="btn btn-primary">Tạo mới</a>
+                    @endif
+                    <a href="{{ route('admin.slider.edit', 0) }}" class="btn btn-success">Sửa</a>
                     <a href="" class="btn btn-danger">Xóa</a>
                 </td>
             </tr>
@@ -22,8 +24,10 @@
                 <tr>
                     <td><h4>{{ $category->name }}</h4></td>
                     <td>
-                        <a href="{{ route('admin.slider.create', $category->id) }}" class="btn btn-primary">Tạo mới</a>
-                        <a href="" class="btn btn-success">Sửa</a>
+                        @if(!in_array($category->id, $already))
+                            <a href="{{ route('admin.slider.create', $category->id) }}" class="btn btn-primary">Tạo mới</a>
+                        @endif
+                        <a href="{{ route('admin.slider.edit', $category->id) }}" class="btn btn-success">Sửa</a>
                         <a href="" class="btn btn-danger">Xóa</a>
                     </td>
                 </tr>

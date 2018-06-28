@@ -243,49 +243,30 @@
             </div>
         </div>
         <div id="menu1" class="tab-pane fade">
-            <h3>Bạn có câu hỏi với sản phẩm này? Hãy đặt câu hỏi ở đây</h3>
+            <h3>Bạn có bình luận với sản phẩm này? Hãy đặt bình luận ở đây</h3>
             <div class="col-md-8">
-                {!! Form::open(['method' => 'POST', 'action' => ['ProductController@index', $product->id]]) !!}
+                {!! Form::open(['method' => 'POST', 'action' => ['CommentController@store', $product->id]]) !!}
                 <div class="form-group">
-                    {!! Form::textarea('review', null, ['class' => 'form-control', 'rows' => '5', 'placeholder' => 'Đặt câu hỏi']) !!}
+                    {!! Form::textarea('content', null, ['class' => 'form-control', 'rows' => '5', 'placeholder' => 'Đặt bình luận']) !!}
                 </div>
                 <div class="form-group">
-                    {!! Form::submit('GỬI', ['class' => 'btn btn-warning', 'name' => 'review-submit']) !!}
+                    {!! Form::submit('GỬI', ['class' => 'btn btn-warning', 'name' => 'comment-submit']) !!}
                 </div>
                 {{ csrf_field() }}
                 {!! Form::close() !!}
                 <div class="list-comment-box">
-                    <h3 class="page-header">Có 5 câu hỏi về sản phẩm này</h3>
-                    <div class="user-comment-box">
-                        <img class="avatar" src="{{ asset('images/Untitled-1-512.png') }}" width="45" />
-                        <div class="comment-detail">
-                            <span class="username-comment">Nguyễn Ngọc Doanh</span> <span class="date-comment">2018-03-15 00:14:21</span>
-                            <div class="user-comment-content">
-                                Mình mua máy được khoảng 1 tuần có mấy nhận xét để các bạn tham khảo nhé Ưu điểm pin trâu .màn hình đẹp hiển thị tốt ngoài trời nắng. Chiến game tốt. Có chế độ 2 màn hình cực thích Chơi game cả ngày máy ko nóng kể cả khi đang sạc Chế độ allway on display Lọc sáng xanh ko bị mỏi mắt khi dùng lâu Còn một số nhược điểm mh chưa thực sự thích là Máy có trọng lượng khá nặng có lẽ do viên pin+thân máy kim loại Vân tay 1 chạm ko nhạy lắm. Nếu đeo găng tay thì ko thao tác dc Cổng 3.5 phát ra amply hơi nhỏ và ko trung thực Lâu dài thì chưa biết nhưng nói chung vs mh thì j7 pro 8 điểm Chúc các bạn chọn dc chiếc dế ưng ý
+                    <h3 class="page-header">Có {{ $cmt_qty }} bình luận về sản phẩm này</h3>
+                    @foreach($cmt as $cmt_item)
+                        <div class="user-comment-box">
+                            <img class="avatar" src="{{ asset('images/Untitled-1-512.png') }}" width="45" />
+                            <div class="comment-detail">
+                                <span class="username-comment">{{ $cmt_item->user->realname }}</span> <span class="date-review">{{ $cmt_item->created_at->format('H:i:s d/m/Y') }}</span>
+                                <div class="user-comment-content">
+                                    {{ $cmt_item->content }}
+                                </div>
                             </div>
-                            <a href="" class="reply-button">Trả lời</a>
                         </div>
-                    </div>
-                    <div class="user-comment-box">
-                        <img class="avatar" src="{{ asset('images/Untitled-1-512.png') }}" width="45" />
-                        <div class="comment-detail">
-                            <span class="username-comment">Nguyễn Ngọc Doanh</span> <span class="date-comment">2018-03-15 00:14:21</span>
-                            <div class="user-comment-content">
-                                Mình mua máy được khoảng 1 tuần có mấy nhận xét để các bạn tham khảo nhé Ưu điểm pin trâu .màn hình đẹp hiển thị tốt ngoài trời nắng. Chiến game tốt. Có chế độ 2 màn hình cực thích Chơi game cả ngày máy ko nóng kể cả khi đang sạc Chế độ allway on display Lọc sáng xanh ko bị mỏi mắt khi dùng lâu Còn một số nhược điểm mh chưa thực sự thích là Máy có trọng lượng khá nặng có lẽ do viên pin+thân máy kim loại Vân tay 1 chạm ko nhạy lắm. Nếu đeo găng tay thì ko thao tác dc Cổng 3.5 phát ra amply hơi nhỏ và ko trung thực Lâu dài thì chưa biết nhưng nói chung vs mh thì j7 pro 8 điểm Chúc các bạn chọn dc chiếc dế ưng ý
-                            </div>
-                            <a href="" class="reply-button">Trả lời</a>
-                        </div>
-                    </div>
-                    <div class="user-comment-box">
-                        <img class="avatar" src="{{ asset('images/Untitled-1-512.png') }}" width="45" />
-                        <div class="comment-detail">
-                            <span class="username-comment">Nguyễn Ngọc Doanh</span> <span class="date-comment">2018-03-15 00:14:21</span>
-                            <div class="user-comment-content">
-                                Mình mua máy được khoảng 1 tuần có mấy nhận xét để các bạn tham khảo nhé Ưu điểm pin trâu .màn hình đẹp hiển thị tốt ngoài trời nắng. Chiến game tốt. Có chế độ 2 màn hình cực thích Chơi game cả ngày máy ko nóng kể cả khi đang sạc Chế độ allway on display Lọc sáng xanh ko bị mỏi mắt khi dùng lâu Còn một số nhược điểm mh chưa thực sự thích là Máy có trọng lượng khá nặng có lẽ do viên pin+thân máy kim loại Vân tay 1 chạm ko nhạy lắm. Nếu đeo găng tay thì ko thao tác dc Cổng 3.5 phát ra amply hơi nhỏ và ko trung thực Lâu dài thì chưa biết nhưng nói chung vs mh thì j7 pro 8 điểm Chúc các bạn chọn dc chiếc dế ưng ý
-                            </div>
-                            <a href="" class="reply-button">Trả lời</a>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
             </div>
         </div>
